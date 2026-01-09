@@ -216,6 +216,32 @@ app.get('/admin.html', adminAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
+// Logout endpoint - forces browser to clear credentials
+app.get('/logout', (req, res) => {
+    res.setHeader('WWW-Authenticate', 'Basic realm="Admin Area"');
+    res.status(401).send(`
+        <!DOCTYPE html>
+        <html lang="ar" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <title>تم تسجيل الخروج</title>
+            <style>
+                body { font-family: 'Cairo', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1a2e; color: white; }
+                .box { text-align: center; padding: 40px; background: #16213e; border-radius: 20px; }
+                a { color: #e94560; text-decoration: none; font-weight: bold; }
+            </style>
+        </head>
+        <body>
+            <div class="box">
+                <h1>✅ تم تسجيل الخروج</h1>
+                <p>تم تسجيل خروجك بنجاح</p>
+                <p><a href="/">العودة للمتجر</a> | <a href="/admin">تسجيل الدخول مرة أخرى</a></p>
+            </div>
+        </body>
+        </html>
+    `);
+});
+
 // Protect admin API routes
 app.use('/api/orders', (req, res, next) => {
     // Allow POST (creating orders) without auth

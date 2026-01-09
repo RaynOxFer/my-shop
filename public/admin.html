@@ -491,6 +491,26 @@
             50% { opacity: 0.5; transform: scale(0.8); }
         }
 
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
             .admin-header .container {
                 flex-direction: column;
@@ -518,6 +538,9 @@
                     تحديث تلقائي
                 </div>
                 <a href="/"><i class="fas fa-store"></i> عرض المتجر</a>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
             </div>
         </div>
     </header>
@@ -574,6 +597,31 @@
     <script>
         let orders = [];
         let autoRefreshInterval;
+
+        // Logout function
+        function logout() {
+            // Clear the auto-refresh
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+            }
+            // Redirect to logout endpoint
+            window.location.href = '/logout';
+        }
+
+        // Auto-logout when leaving the page
+        window.addEventListener('beforeunload', function() {
+            // Send a request to clear session (optional tracking)
+            navigator.sendBeacon('/logout');
+        });
+
+        // Also logout when page visibility changes (tab switch/close)
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                // Page is being hidden, could trigger logout
+                // Uncomment next line if you want logout on tab switch too:
+                // navigator.sendBeacon('/logout');
+            }
+        });
 
         // Format price in DZD
         function formatPrice(price) {
