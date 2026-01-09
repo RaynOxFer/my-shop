@@ -274,63 +274,83 @@ if (!fs.existsSync(ordersFile)) {
 const products = [
     {
         id: 1,
-        name: "Wireless Headphones",
-        nameAr: "سماعات لاسلكية",
-        price: 4500,
-        description: "High-quality wireless headphones with noise cancellation",
-        descriptionAr: "سماعات لاسلكية عالية الجودة مع خاصية إلغاء الضوضاء",
-        image: "headphones.svg",
+        name: "Argan Oil",
+        nameAr: "زيت الأرغان الطبيعي",
+        price: 2500,
+        description: "100% Pure Moroccan Argan Oil for hair and skin",
+        descriptionAr: "زيت أرغان مغربي نقي 100% للشعر والبشرة",
+        image: "argan-oil.svg",
         badge: "الأكثر مبيعاً"
     },
     {
         id: 2,
-        name: "Smart Watch",
-        nameAr: "ساعة ذكية",
-        price: 12000,
-        description: "Advanced smartwatch with health monitoring features",
-        descriptionAr: "ساعة ذكية متطورة مع ميزات مراقبة الصحة",
-        image: "smartwatch.svg",
+        name: "Black Seed Oil",
+        nameAr: "زيت الحبة السوداء",
+        price: 1800,
+        description: "Cold-pressed black seed oil - natural immunity booster",
+        descriptionAr: "زيت حبة البركة معصور على البارد - معزز طبيعي للمناعة",
+        image: "black-seed.svg",
         badge: "جديد"
     },
     {
         id: 3,
-        name: "Bluetooth Speaker",
-        nameAr: "مكبر صوت بلوتوث",
+        name: "Natural Honey",
+        nameAr: "عسل طبيعي جبلي",
         price: 3500,
-        description: "Portable Bluetooth speaker with amazing sound quality",
-        descriptionAr: "مكبر صوت بلوتوث محمول بجودة صوت ممتازة",
-        image: "speaker.svg",
-        badge: ""
+        description: "Pure mountain honey - 100% natural and organic",
+        descriptionAr: "عسل جبلي صافي - طبيعي وعضوي 100%",
+        image: "honey.svg",
+        badge: "عضوي"
     },
     {
         id: 4,
-        name: "Laptop Stand",
-        nameAr: "حامل لابتوب",
-        price: 2500,
-        description: "Ergonomic aluminum laptop stand for better posture",
-        descriptionAr: "حامل لابتوب من الألومنيوم لوضعية جلوس أفضل",
-        image: "laptop-stand.svg",
-        badge: "عرض خاص"
+        name: "Rose Water",
+        nameAr: "ماء الورد الطبيعي",
+        price: 1200,
+        description: "Natural rose water for skin care and cooking",
+        descriptionAr: "ماء ورد طبيعي للعناية بالبشرة والطبخ",
+        image: "rose-water.svg",
+        badge: ""
     },
     {
         id: 5,
-        name: "Wireless Mouse",
-        nameAr: "فأرة لاسلكية",
-        price: 1800,
-        description: "Ergonomic wireless mouse with long battery life",
-        descriptionAr: "فأرة لاسلكية مريحة مع عمر بطارية طويل",
-        image: "mouse.svg",
-        badge: ""
+        name: "Shea Butter",
+        nameAr: "زبدة الشيا الخام",
+        price: 2000,
+        description: "Raw unrefined shea butter for skin and hair",
+        descriptionAr: "زبدة شيا خام غير مكررة للبشرة والشعر",
+        image: "shea-butter.svg",
+        badge: "طبيعي 100%"
     },
     {
         id: 6,
-        name: "USB-C Hub",
-        nameAr: "موزع USB-C",
-        price: 4000,
-        description: "Multi-port USB-C hub with HDMI and card reader",
-        descriptionAr: "موزع USB-C متعدد المنافذ مع HDMI وقارئ بطاقات",
-        image: "usb-hub.svg",
+        name: "Aloe Vera Gel",
+        nameAr: "جل الصبار الطبيعي",
+        price: 1500,
+        description: "Pure aloe vera gel - soothing and moisturizing",
+        descriptionAr: "جل صبار نقي - مهدئ ومرطب للبشرة",
+        image: "aloe-vera.svg",
         badge: ""
+    },
+    {
+        id: 7,
+        name: "Coconut Oil",
+        nameAr: "زيت جوز الهند البكر",
+        price: 1600,
+        description: "Virgin coconut oil for cooking, skin and hair",
+        descriptionAr: "زيت جوز الهند البكر للطبخ والبشرة والشعر",
+        image: "coconut-oil.svg",
+        badge: ""
+    },
+    {
+        id: 8,
+        name: "Herbal Tea Mix",
+        nameAr: "خلطة أعشاب طبيعية",
+        price: 900,
+        description: "Organic herbal tea blend for relaxation",
+        descriptionAr: "خلطة شاي أعشاب عضوية للاسترخاء",
+        image: "herbal-tea.svg",
+        badge: "عرض خاص"
     }
 ];
 

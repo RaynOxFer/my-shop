@@ -7,34 +7,40 @@
 
 /* Theme Variables - Light Mode (Default) */
 :root {
-    --bg-primary: #f8f9fa;
+    --bg-primary: #f5f9f5;
     --bg-secondary: #ffffff;
     --bg-header: #ffffff;
     --bg-card: #ffffff;
-    --bg-input: #f8f9fa;
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --text-muted: #999999;
-    --border-color: #e0e0e0;
+    --bg-input: #f0f5f0;
+    --text-primary: #2d3436;
+    --text-secondary: #636e72;
+    --text-muted: #b2bec3;
+    --border-color: #dfe6e9;
     --shadow-color: rgba(0, 0, 0, 0.08);
-    --accent-color: #e94560;
-    --accent-hover: #c73e54;
+    --accent-color: #27ae60;
+    --accent-hover: #1e8449;
+    --accent-light: #e8f5e9;
+    --gradient-start: #27ae60;
+    --gradient-end: #2ecc71;
 }
 
 /* Dark Mode */
 [data-theme="dark"] {
-    --bg-primary: #1a1a2e;
-    --bg-secondary: #16213e;
-    --bg-header: #16213e;
-    --bg-card: #1f2b47;
-    --bg-input: #2a3a5c;
+    --bg-primary: #1a2f1a;
+    --bg-secondary: #0d1f0d;
+    --bg-header: #0d1f0d;
+    --bg-card: #1a3320;
+    --bg-input: #244024;
     --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --text-muted: #888888;
-    --border-color: #2a3a5c;
+    --text-secondary: #b8d4b8;
+    --text-muted: #7da67d;
+    --border-color: #2d4a2d;
     --shadow-color: rgba(0, 0, 0, 0.3);
-    --accent-color: #e94560;
-    --accent-hover: #ff6b81;
+    --accent-color: #2ecc71;
+    --accent-hover: #58d68d;
+    --accent-light: #1a3320;
+    --gradient-start: #27ae60;
+    --gradient-end: #2ecc71;
 }
 
 body {
@@ -54,7 +60,7 @@ body {
 
 /* Top Banner */
 .top-banner {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, #145214 0%, #1e8449 100%);
     color: white;
     padding: 10px 0;
     overflow: hidden;
@@ -93,14 +99,14 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
 }
 
 .btn-outline {
@@ -149,7 +155,7 @@ body {
 .logo-text {
     font-size: 28px;
     font-weight: 800;
-    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -174,7 +180,7 @@ body {
 }
 
 .nav a:hover {
-    color: #e94560;
+    color: #27ae60;
 }
 
 .nav a::after {
@@ -184,7 +190,7 @@ body {
     right: 0;
     width: 0;
     height: 2px;
-    background: #e94560;
+    background: #27ae60;
     transition: width 0.3s;
 }
 
@@ -218,7 +224,7 @@ body {
 
 .search-box input:focus {
     outline: none;
-    border-color: #e94560;
+    border-color: #27ae60;
     width: 250px;
 }
 
@@ -238,7 +244,7 @@ body {
 }
 
 .cart-icon:hover {
-    background: #e94560;
+    background: #27ae60;
 }
 
 .cart-icon:hover i {
@@ -255,7 +261,7 @@ body {
     position: absolute;
     top: -5px;
     left: -5px;
-    background: #e94560;
+    background: #27ae60;
     color: white;
     font-size: 11px;
     width: 22px;
@@ -306,12 +312,12 @@ body {
 
 .mobile-menu a:hover {
     background: var(--bg-input);
-    color: #e94560;
+    color: #27ae60;
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, #1a5a1a 0%, #27ae60 100%);
     min-height: 550px;
     display: flex;
     align-items: center;
@@ -331,7 +337,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></svg>') repeat;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/><path d="M30,70 Q50,20 70,70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.3"/></svg>') repeat;
     opacity: 0.5;
 }
 
@@ -343,14 +349,14 @@ body {
 
 .hero-badge {
     display: inline-block;
-    background: rgba(233, 69, 96, 0.2);
-    color: #e94560;
+    background: rgba(39, 174, 96, 0.2);
+    color: #27ae60;
     padding: 8px 20px;
     border-radius: 25px;
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 20px;
-    border: 1px solid rgba(233, 69, 96, 0.3);
+    border: 1px solid rgba(39, 174, 96, 0.3);
 }
 
 .hero-content h1 {
@@ -389,7 +395,7 @@ body {
     display: block;
     font-size: 32px;
     font-weight: 800;
-    color: #e94560;
+    color: #27ae60;
 }
 
 .stat-label {
@@ -427,7 +433,7 @@ body {
 .feature-icon {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -462,7 +468,7 @@ body {
 }
 
 .section-title i {
-    color: #e94560;
+    color: #27ae60;
 }
 
 .section-subtitle {
@@ -506,7 +512,7 @@ body {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: #e94560;
+    background: #27ae60;
     color: white;
     padding: 5px 12px;
     border-radius: 20px;
@@ -574,7 +580,7 @@ body {
 }
 
 .product-overlay button:hover {
-    background: #e94560;
+    background: #27ae60;
     color: white;
 }
 
@@ -600,7 +606,7 @@ body {
 .product-price {
     font-size: 22px;
     font-weight: 800;
-    color: #e94560;
+    color: #27ae60;
     margin-bottom: 15px;
 }
 
@@ -629,7 +635,7 @@ body {
 }
 
 .btn-add:hover {
-    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
     transform: scale(1.02);
 }
 
@@ -663,7 +669,7 @@ body {
 .why-us-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -719,7 +725,7 @@ body {
 
 .contact-card i {
     font-size: 35px;
-    color: #e94560;
+    color: #27ae60;
     margin-bottom: 15px;
 }
 
@@ -755,7 +761,7 @@ body {
 .footer-col h4 {
     font-size: 18px;
     margin-bottom: 20px;
-    color: #e94560;
+    color: #27ae60;
 }
 
 .footer-col p {
@@ -781,7 +787,7 @@ body {
 }
 
 .footer-col ul li a:hover {
-    color: #e94560;
+    color: #27ae60;
 }
 
 .social-links {
@@ -804,7 +810,7 @@ body {
 }
 
 .social-links a:hover {
-    background: #e94560;
+    background: #27ae60;
     transform: translateY(-3px);
 }
 
@@ -958,7 +964,7 @@ body {
 }
 
 .cart-item-price {
-    color: #e94560;
+    color: #27ae60;
     font-weight: 700;
     margin-bottom: 10px;
     font-size: 16px;
@@ -984,7 +990,7 @@ body {
 }
 
 .cart-item-quantity button:hover {
-    background: #e94560;
+    background: #27ae60;
     color: white;
 }
 
@@ -1024,7 +1030,7 @@ body {
 }
 
 .cart-total span:last-child {
-    color: #e94560;
+    color: #27ae60;
 }
 
 .btn-checkout {
@@ -1151,7 +1157,7 @@ body {
     padding-top: 15px;
     border-top: 2px solid var(--border-color);
     font-size: 20px;
-    color: #e94560;
+    color: #27ae60;
 }
 
 #checkoutForm h4 {
@@ -1207,7 +1213,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #e94560;
+    border-color: #27ae60;
 }
 
 .payment-info {
@@ -1265,7 +1271,7 @@ body {
 
 .order-id {
     font-weight: 700;
-    color: #e94560;
+    color: #27ae60;
     margin-bottom: 30px;
     font-size: 18px;
 }
@@ -1313,7 +1319,7 @@ body {
 .modal-price {
     font-size: 32px;
     font-weight: 800;
-    color: #e94560;
+    color: #27ae60;
     margin-bottom: 15px;
 }
 
@@ -1334,18 +1340,18 @@ body {
 .quantity-selector button {
     width: 45px;
     height: 45px;
-    border: 2px solid #e94560;
+    border: 2px solid #27ae60;
     background: white;
     border-radius: 12px;
     cursor: pointer;
     font-size: 22px;
-    color: #e94560;
+    color: #27ae60;
     font-weight: 700;
     transition: all 0.3s;
 }
 
 .quantity-selector button:hover {
-    background: #e94560;
+    background: #27ae60;
     color: white;
 }
 
@@ -1539,7 +1545,7 @@ body {
 }
 
 .theme-toggle:hover {
-    border-color: #e94560;
+    border-color: #27ae60;
 }
 
 .theme-toggle-ball {
