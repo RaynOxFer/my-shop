@@ -3,8 +3,36 @@ let cart = [];
 let products = [];
 let currentProduct = null;
 
+// Theme Toggle Function
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    // Update toggle icon
+    const icon = document.querySelector('.theme-toggle-ball i');
+    if (icon) {
+        icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+}
+
+// Load saved theme on page load
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    const icon = document.querySelector('.theme-toggle-ball i');
+    if (icon) {
+        icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
+    loadTheme();
     loadProducts();
     loadCartFromStorage();
     updateCartUI();

@@ -13,11 +13,35 @@
             box-sizing: border-box;
         }
 
+        /* Theme Variables */
+        :root {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: #f8f9fa;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-card: #1f2b47;
+            --bg-input: #2a3a5c;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: #2a3a5c;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             direction: rtl;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .admin-header {
@@ -77,17 +101,17 @@
         }
 
         .stat-card {
-            background: white;
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px var(--shadow-color);
             text-align: center;
             transition: all 0.3s;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px var(--shadow-color);
         }
 
         .stat-card i {
@@ -99,30 +123,30 @@
         .stat-card h3 {
             font-size: 36px;
             margin-bottom: 5px;
-            color: #1a1a2e;
+            color: var(--text-primary);
         }
 
         .stat-card p {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
         .orders-section {
-            background: white;
+            background: var(--bg-card);
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px var(--shadow-color);
             overflow: hidden;
         }
 
         .orders-header {
             padding: 25px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            background: #f8f9fa;
+            background: var(--bg-input);
         }
 
         .orders-header h2 {
@@ -130,7 +154,7 @@
             align-items: center;
             gap: 10px;
             font-size: 20px;
-            color: #1a1a2e;
+            color: var(--text-primary);
         }
 
         .refresh-btn {
@@ -159,15 +183,16 @@
         }
 
         .order-card {
-            border: 1px solid #eee;
+            border: 1px solid var(--border-color);
             border-radius: 15px;
             margin-bottom: 20px;
             overflow: hidden;
             transition: all 0.3s;
+            background: var(--bg-card);
         }
 
         .order-card:hover {
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 25px var(--shadow-color);
         }
 
         .order-card.new {
@@ -192,7 +217,7 @@
 
         .order-header {
             padding: 20px;
-            background: #f8f9fa;
+            background: var(--bg-input);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -203,7 +228,7 @@
         }
 
         .order-header:hover {
-            background: #f0f0f0;
+            background: var(--bg-secondary);
         }
 
         .order-id {
@@ -213,14 +238,14 @@
         }
 
         .order-date {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 13px;
             margin-top: 5px;
         }
 
         .order-customer {
             font-weight: 600;
-            color: #1a1a2e;
+            color: var(--text-primary);
             margin-top: 5px;
         }
 
@@ -265,7 +290,7 @@
         .order-body {
             padding: 25px;
             display: none;
-            background: white;
+            background: var(--bg-card);
         }
 
         .order-body.active {
@@ -279,14 +304,14 @@
         }
 
         .order-info-section {
-            background: #f8f9fa;
+            background: var(--bg-input);
             padding: 20px;
             border-radius: 15px;
         }
 
         .order-info-section h4 {
             margin-bottom: 15px;
-            color: #1a1a2e;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -299,7 +324,7 @@
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .info-row:last-child {
@@ -307,12 +332,12 @@
         }
 
         .info-label {
-            color: #666;
+            color: var(--text-secondary);
         }
 
         .info-value {
             font-weight: 600;
-            color: #1a1a2e;
+            color: var(--text-primary);
         }
 
         .info-value a {
@@ -511,6 +536,45 @@
             transform: translateY(-2px);
         }
 
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 50px;
+            height: 26px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+        }
+
+        .theme-toggle:hover {
+            border-color: #e94560;
+        }
+
+        .theme-toggle-ball {
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%);
+            border-radius: 50%;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle-ball i {
+            font-size: 10px;
+            color: white;
+        }
+
+        [data-theme="dark"] .theme-toggle-ball {
+            transform: translateX(-22px);
+            background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%);
+        }
+
         @media (max-width: 768px) {
             .admin-header .container {
                 flex-direction: column;
@@ -533,6 +597,11 @@
         <div class="container">
             <h1><i class="fas fa-cog"></i> لوحة التحكم</h1>
             <div style="display: flex; gap: 20px; align-items: center;">
+                <div class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع">
+                    <div class="theme-toggle-ball">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                </div>
                 <div class="auto-refresh">
                     <span class="dot"></span>
                     تحديث تلقائي
@@ -598,6 +667,33 @@
         let orders = [];
         let autoRefreshInterval;
 
+        // Theme Toggle Function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update toggle icon
+            const icon = document.querySelector('.theme-toggle-ball i');
+            if (icon) {
+                icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+        }
+
+        // Load saved theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            const icon = document.querySelector('.theme-toggle-ball i');
+            if (icon) {
+                icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+        }
+
         // Logout function
         function logout() {
             // Clear the auto-refresh
@@ -630,6 +726,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
             loadOrders();
             // Auto-refresh every 10 seconds
             autoRefreshInterval = setInterval(loadOrders, 10000);
