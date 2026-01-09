@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect fill="#f0f0f0" width="400" height="300"/>
+  <rect x="120" y="120" width="160" height="60" rx="10" fill="#667eea"/>
+  <rect x="130" y="130" width="20" height="40" rx="3" fill="#e0e0e0"/>
+  <rect x="160" y="130" width="20" height="40" rx="3" fill="#e0e0e0"/>
+  <rect x="190" y="130" width="20" height="40" rx="3" fill="#e0e0e0"/>
+  <rect x="220" y="130" width="50" height="40" rx="3" fill="#764ba2"/>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial" font-size="18" fill="#999">USB-C Hub</text>
+</svg>

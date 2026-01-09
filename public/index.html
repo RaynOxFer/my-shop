@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجري - أفضل المنتجات في الجزائر</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <div class="marquee">
+            <span>🎉 توصيل سريع لجميع ولايات الجزائر 🚚 | الدفع عند الاستلام 💰 | منتجات أصلية 100% ✅ | راضي أو مستُرد 😊</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-text">متجري</span>
+                <span class="logo-sub">🇩🇿 الجزائر</span>
+            </a>
+            <nav class="nav">
+                <a href="#products">المنتجات</a>
+                <a href="#features">مميزاتنا</a>
+                <a href="#contact">اتصل بنا</a>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="ابحث عن منتج..." id="searchInput" onkeyup="searchProducts()">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#products" onclick="toggleMobileMenu()">المنتجات</a>
+        <a href="#features" onclick="toggleMobileMenu()">مميزاتنا</a>
+        <a href="#contact" onclick="toggleMobileMenu()">اتصل بنا</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🏷️ أفضل العروض</div>
+            <h1>مرحباً بك في متجري</h1>
+            <p>اكتشف أفضل المنتجات بأسعار لا تُقاوم مع توصيل سريع لجميع ولايات الجزائر</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i>
+                    تسوق الآن
+                </a>
+                <a href="#features" class="btn btn-outline">
+                    <i class="fas fa-info-circle"></i>
+                    اكتشف المزيد
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">+1000</span>
+                    <span class="stat-label">عميل سعيد</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">48</span>
+                    <span class="stat-label">ولاية</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">جودة مضمونة</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-bar" id="features">
+        <div class="container">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>توصيل سريع</h4>
+                    <p>لجميع الولايات</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>الدفع عند الاستلام</h4>
+                    <p>ادفع عند وصول طلبك</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>ضمان الجودة</h4>
+                    <p>منتجات أصلية 100%</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-undo"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>استرجاع مجاني</h4>
+                    <p>راضي أو مسترد</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-fire"></i>
+                    منتجاتنا المميزة
+                </h2>
+                <p class="section-subtitle">اختر من بين مجموعة واسعة من المنتجات عالية الجودة</p>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                لماذا تختارنا؟
+            </h2>
+            <div class="why-us-grid">
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>منتجات أصلية</h3>
+                    <p>نضمن لك جودة عالية ومنتجات أصلية 100%</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>خدمة عملاء متميزة</h3>
+                    <p>فريقنا متاح دائماً لمساعدتك والإجابة على استفساراتك</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3>أسعار منافسة</h3>
+                    <p>نقدم لك أفضل الأسعار في السوق الجزائري</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i>
+                تواصل معنا
+            </h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h4>الهاتف</h4>
+                    <p>+213 XX XX XX XX</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h4>البريد الإلكتروني</h4>
+                    <p>contact@myshop.dz</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>العنوان</h4>
+                    <p>الجزائر</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h4>واتساب</h4>
+                    <p>+213 XX XX XX XX</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>المجموع:</span>
+                <span id="cartTotal">0 د.ج</span>
+            </div>
+            <button class="btn btn-primary btn-checkout" onclick="openCheckout()" id="checkoutBtn" disabled>
+                <i class="fas fa-check-circle"></i>
+                إتمام الطلب
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-clipboard-list"></i> إتمام الطلب</h3>
+                <button class="close-modal" onclick="closeCheckout()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h4><i class="fas fa-shopping-bag"></i> ملخص الطلب</h4>
+                    <div id="checkoutItems"></div>
+                    <div class="checkout-total">
+                        <strong>المجموع: <span id="checkoutTotal">0 د.ج</span></strong>
+                    </div>
+                </div>
+
+                <!-- Customer Form -->
+                <form id="checkoutForm" onsubmit="submitOrder(event)">
+                    <h4><i class="fas fa-user"></i> معلوماتك الشخصية</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">الاسم *</label>
+                            <input type="text" id="firstName" name="firstName" required placeholder="محمد">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">اللقب *</label>
+                            <input type="text" id="lastName" name="lastName" required placeholder="أحمد">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="07XX XX XX XX">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني *</label>
+                        <input type="email" id="email" name="email" required placeholder="example@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="wilaya">الولاية *</label>
+                        <select id="wilaya" name="wilaya" required>
+                            <option value="">اختر الولاية</option>
+                            <option value="01-أدرار">01 - أدرار</option>
+                            <option value="02-الشلف">02 - الشلف</option>
+                            <option value="03-الأغواط">03 - الأغواط</option>
+                            <option value="04-أم البواقي">04 - أم البواقي</option>
+                            <option value="05-باتنة">05 - باتنة</option>
+                            <option value="06-بجاية">06 - بجاية</option>
+                            <option value="07-بسكرة">07 - بسكرة</option>
+                            <option value="08-بشار">08 - بشار</option>
+                            <option value="09-البليدة">09 - البليدة</option>
+                            <option value="10-البويرة">10 - البويرة</option>
+                            <option value="11-تمنراست">11 - تمنراست</option>
+                            <option value="12-تبسة">12 - تبسة</option>
+                            <option value="13-تلمسان">13 - تلمسان</option>
+                            <option value="14-تيارت">14 - تيارت</option>
+                            <option value="15-تيزي وزو">15 - تيزي وزو</option>
+                            <option value="16-الجزائر">16 - الجزائر</option>
+                            <option value="17-الجلفة">17 - الجلفة</option>
+                            <option value="18-جيجل">18 - جيجل</option>
+                            <option value="19-سطيف">19 - سطيف</option>
+                            <option value="20-سعيدة">20 - سعيدة</option>
+                            <option value="21-سكيكدة">21 - سكيكدة</option>
+                            <option value="22-سيدي بلعباس">22 - سيدي بلعباس</option>
+                            <option value="23-عنابة">23 - عنابة</option>
+                            <option value="24-قالمة">24 - قالمة</option>
+                            <option value="25-قسنطينة">25 - قسنطينة</option>
+                            <option value="26-المدية">26 - المدية</option>
+                            <option value="27-مستغانم">27 - مستغانم</option>
+                            <option value="28-المسيلة">28 - المسيلة</option>
+                            <option value="29-معسكر">29 - معسكر</option>
+                            <option value="30-ورقلة">30 - ورقلة</option>
+                            <option value="31-وهران">31 - وهران</option>
+                            <option value="32-البيض">32 - البيض</option>
+                            <option value="33-إليزي">33 - إليزي</option>
+                            <option value="34-برج بوعريريج">34 - برج بوعريريج</option>
+                            <option value="35-بومرداس">35 - بومرداس</option>
+                            <option value="36-الطارف">36 - الطارف</option>
+                            <option value="37-تندوف">37 - تندوف</option>
+                            <option value="38-تيسمسيلت">38 - تيسمسيلت</option>
+                            <option value="39-الوادي">39 - الوادي</option>
+                            <option value="40-خنشلة">40 - خنشلة</option>
+                            <option value="41-سوق أهراس">41 - سوق أهراس</option>
+                            <option value="42-تيبازة">42 - تيبازة</option>
+                            <option value="43-ميلة">43 - ميلة</option>
+                            <option value="44-عين الدفلى">44 - عين الدفلى</option>
+                            <option value="45-النعامة">45 - النعامة</option>
+                            <option value="46-عين تموشنت">46 - عين تموشنت</option>
+                            <option value="47-غرداية">47 - غرداية</option>
+                            <option value="48-غليزان">48 - غليزان</option>
+                            <option value="49-تيميمون">49 - تيميمون</option>
+                            <option value="50-برج باجي مختار">50 - برج باجي مختار</option>
+                            <option value="51-أولاد جلال">51 - أولاد جلال</option>
+                            <option value="52-بني عباس">52 - بني عباس</option>
+                            <option value="53-عين صالح">53 - عين صالح</option>
+                            <option value="54-عين قزام">54 - عين قزام</option>
+                            <option value="55-توقرت">55 - توقرت</option>
+                            <option value="56-جانت">56 - جانت</option>
+                            <option value="57-المغير">57 - المغير</option>
+                            <option value="58-المنيعة">58 - المنيعة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">العنوان بالتفصيل *</label>
+                        <textarea id="address" name="address" required placeholder="الحي، الشارع، رقم البناية..."></textarea>
+                    </div>
+                    <div class="payment-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>الدفع عند الاستلام - ستدفع عند وصول طلبك</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        تأكيد الطلب
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>تم الطلب بنجاح! 🎉</h2>
+            <p>شكراً لك على طلبك. سنتواصل معك قريباً لتأكيد الطلب.</p>
+            <p class="order-id">رقم الطلب: <span id="orderId"></span></p>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">
+                <i class="fas fa-shopping-bag"></i>
+                متابعة التسوق
+            </button>
+        </div>
+    </div>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal product-modal">
+            <button class="close-modal" onclick="closeProductModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-modal-content">
+                <div class="product-modal-image">
+                    <img id="modalProductImage" src="" alt="">
+                </div>
+                <div class="product-modal-info">
+                    <h2 id="modalProductName"></h2>
+                    <p class="modal-price" id="modalProductPrice"></p>
+                    <p class="modal-description" id="modalProductDescription"></p>
+                    <div class="quantity-selector">
+                        <button onclick="decreaseModalQuantity()">-</button>
+                        <input type="number" id="modalQuantity" value="1" min="1">
+                        <button onclick="increaseModalQuantity()">+</button>
+                    </div>
+                    <button class="btn btn-primary btn-add-cart" onclick="addToCartFromModal()">
+                        <i class="fas fa-cart-plus"></i> أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>متجري 🇩🇿</h3>
+                    <p>متجرك المفضل في الجزائر للحصول على أفضل المنتجات بأسعار منافسة وتوصيل سريع.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#products">المنتجات</a></li>
+                        <li><a href="#features">مميزاتنا</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>خدمة العملاء</h4>
+                    <ul>
+                        <li><a href="#">سياسة الإرجاع</a></li>
+                        <li><a href="#">الشحن والتوصيل</a></li>
+                        <li><a href="#">الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fas fa-phone"></i> +213 XX XX XX XX</p>
+                    <p><i class="fas fa-envelope"></i> contact@myshop.dz</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الجزائر</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 متجري. جميع الحقوق محفوظة 🇩🇿</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/213XXXXXXXXX" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>

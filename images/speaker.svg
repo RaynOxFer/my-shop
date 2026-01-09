@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect fill="#f0f0f0" width="400" height="300"/>
+  <ellipse cx="200" cy="150" rx="70" ry="70" fill="#667eea"/>
+  <circle cx="200" cy="150" r="50" fill="#764ba2"/>
+  <circle cx="200" cy="150" r="20" fill="#e0e0e0"/>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial" font-size="18" fill="#999">Bluetooth Speaker</text>
+</svg>

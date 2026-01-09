@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect fill="#f0f0f0" width="400" height="300"/>
+  <ellipse cx="200" cy="150" rx="50" ry="35" fill="#667eea"/>
+  <ellipse cx="200" cy="145" rx="45" ry="30" fill="#764ba2"/>
+  <circle cx="180" cy="145" r="8" fill="#e0e0e0"/>
+  <circle cx="210" cy="145" r="8" fill="#e0e0e0"/>
+  <rect x="120" y="165" width="30" height="10" rx="5" fill="#667eea"/>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial" font-size="18" fill="#999">Wireless Mouse</text>
+</svg>
