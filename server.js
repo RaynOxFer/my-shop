@@ -270,93 +270,132 @@ if (!fs.existsSync(ordersFile)) {
     fs.writeFileSync(ordersFile, JSON.stringify([], null, 2));
 }
 
-// Products data (you can modify this) - Prices in Algerian Dinar (DZD)
-const products = [
+// Products data - Spices Packs - Prices in Algerian Dinar (DZD)
+let products = [
     {
         id: 1,
-        name: "Argan Oil",
-        nameAr: "زيت الأرغان الطبيعي",
-        price: 2500,
-        description: "100% Pure Moroccan Argan Oil for hair and skin",
-        descriptionAr: "زيت أرغان مغربي نقي 100% للشعر والبشرة",
-        image: "argan-oil.svg",
+        name: "Basic Spices Pack",
+        nameAr: "باك التوابل الأساسية",
+        price: 1900,
+        oldPrice: 2900,
+        description: "Essential spices for everyday cooking",
+        descriptionAr: "توابل أساسية للطبخ اليومي - فلفل أسود، كمون، كركم، بابريكا، زنجبيل",
+        image: "spices-basic.svg",
         badge: "الأكثر مبيعاً"
     },
     {
         id: 2,
-        name: "Black Seed Oil",
-        nameAr: "زيت الحبة السوداء",
-        price: 1800,
-        description: "Cold-pressed black seed oil - natural immunity booster",
-        descriptionAr: "زيت حبة البركة معصور على البارد - معزز طبيعي للمناعة",
-        image: "black-seed.svg",
-        badge: "جديد"
+        name: "Special Spices Pack",
+        nameAr: "باك التوابل الخاصة",
+        price: 2900,
+        oldPrice: 3500,
+        description: "Premium spices for special dishes",
+        descriptionAr: "توابل خاصة للأطباق المميزة - زعفران، هيل، قرفة، جوزة الطيب، قرنفل",
+        image: "spices-special.svg",
+        badge: "مميز"
     },
     {
         id: 3,
-        name: "Natural Honey",
-        nameAr: "عسل طبيعي جبلي",
-        price: 3500,
-        description: "Pure mountain honey - 100% natural and organic",
-        descriptionAr: "عسل جبلي صافي - طبيعي وعضوي 100%",
-        image: "honey.svg",
-        badge: "عضوي"
+        name: "Extra Spices Pack",
+        nameAr: "باك التوابل الإضافية",
+        price: 2500,
+        oldPrice: 2900,
+        description: "Additional spices to complete your kitchen",
+        descriptionAr: "توابل إضافية لمطبخك - سماق، زعتر، حب الهال، ورق الغار، كزبرة",
+        image: "spices-extra.svg",
+        badge: "جديد"
     },
     {
         id: 4,
-        name: "Rose Water",
-        nameAr: "ماء الورد الطبيعي",
-        price: 1200,
-        description: "Natural rose water for skin care and cooking",
-        descriptionAr: "ماء ورد طبيعي للعناية بالبشرة والطبخ",
-        image: "rose-water.svg",
-        badge: ""
+        name: "Complete Spices Pack",
+        nameAr: "باك التوابل الكاملة",
+        price: 6900,
+        oldPrice: 9300,
+        description: "All spices in one complete pack - Best value!",
+        descriptionAr: "جميع التوابل في باك واحد - أفضل قيمة! يشمل جميع الباكات الثلاثة",
+        image: "spices-complete.svg",
+        badge: "عرض خاص"
     },
     {
         id: 5,
-        name: "Shea Butter",
-        nameAr: "زبدة الشيا الخام",
-        price: 2000,
-        description: "Raw unrefined shea butter for skin and hair",
-        descriptionAr: "زبدة شيا خام غير مكررة للبشرة والشعر",
-        image: "shea-butter.svg",
-        badge: "طبيعي 100%"
+        name: "Ras El Hanout",
+        nameAr: "رأس الحانوت",
+        price: 1200,
+        oldPrice: 1500,
+        description: "Traditional Maghrebi spice blend",
+        descriptionAr: "خلطة توابل مغاربية تقليدية - مزيج من أكثر من 20 نوع توابل",
+        image: "ras-el-hanout.svg",
+        badge: "تقليدي"
     },
     {
         id: 6,
-        name: "Aloe Vera Gel",
-        nameAr: "جل الصبار الطبيعي",
-        price: 1500,
-        description: "Pure aloe vera gel - soothing and moisturizing",
-        descriptionAr: "جل صبار نقي - مهدئ ومرطب للبشرة",
-        image: "aloe-vera.svg",
-        badge: ""
+        name: "Harissa Powder",
+        nameAr: "هريسة مجففة",
+        price: 800,
+        oldPrice: 1000,
+        description: "Hot chili pepper blend",
+        descriptionAr: "مسحوق الهريسة الحارة - فلفل أحمر، ثوم، كمون، كزبرة",
+        image: "harissa.svg",
+        badge: "حار 🌶️"
     },
     {
         id: 7,
-        name: "Coconut Oil",
-        nameAr: "زيت جوز الهند البكر",
-        price: 1600,
-        description: "Virgin coconut oil for cooking, skin and hair",
-        descriptionAr: "زيت جوز الهند البكر للطبخ والبشرة والشعر",
-        image: "coconut-oil.svg",
-        badge: ""
+        name: "Saffron Premium",
+        nameAr: "زعفران فاخر",
+        price: 3500,
+        oldPrice: 4500,
+        description: "Premium quality saffron threads",
+        descriptionAr: "زعفران أصلي فاخر - خيوط زعفران نقية 100%",
+        image: "saffron.svg",
+        badge: "فاخر"
     },
     {
         id: 8,
-        name: "Herbal Tea Mix",
-        nameAr: "خلطة أعشاب طبيعية",
-        price: 900,
-        description: "Organic herbal tea blend for relaxation",
-        descriptionAr: "خلطة شاي أعشاب عضوية للاسترخاء",
-        image: "herbal-tea.svg",
-        badge: "عرض خاص"
+        name: "Mixed Herbs",
+        nameAr: "خلطة الأعشاب",
+        price: 700,
+        oldPrice: 900,
+        description: "Dried herb mix for cooking",
+        descriptionAr: "خلطة أعشاب مجففة - نعناع، بقدونس، كزبرة، شبت، ريحان",
+        image: "herbs.svg",
+        badge: ""
     }
 ];
 
 // API: Get all products
 app.get('/api/products', (req, res) => {
     res.json(products);
+});
+
+// API: Add new product (Admin)
+app.post('/api/products/add', adminAuth, (req, res) => {
+    const { nameAr, price, oldPrice, descriptionAr, badge } = req.body;
+    const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+    const newProduct = {
+        id: newId,
+        name: nameAr,
+        nameAr,
+        price: parseInt(price),
+        oldPrice: oldPrice ? parseInt(oldPrice) : null,
+        description: descriptionAr,
+        descriptionAr,
+        image: "spices-default.svg",
+        badge: badge || ""
+    };
+    products.push(newProduct);
+    res.json({ success: true, product: newProduct });
+});
+
+// API: Delete product (Admin)
+app.delete('/api/products/:id', adminAuth, (req, res) => {
+    const productId = parseInt(req.params.id);
+    const index = products.findIndex(p => p.id === productId);
+    if (index !== -1) {
+        products.splice(index, 1);
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ error: 'Product not found' });
+    }
 });
 
 // API: Get single product
