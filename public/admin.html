@@ -454,6 +454,69 @@
 
         .delete-product-btn:hover { background: #c0392b; }
 
+        .edit-product-btn {
+            padding: 6px 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+
+        .edit-product-btn:hover { background: #2980b9; }
+
+        .product-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .edit-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .edit-modal-overlay.active { display: flex; }
+
+        .edit-modal {
+            background: var(--bg-card);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .edit-modal-header {
+            padding: 15px 20px;
+            background: var(--accent);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edit-modal-header h3 { font-size: 16px; }
+
+        .close-edit-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .edit-modal-body { padding: 20px; }
+
         .image-upload-box {
             position: relative;
             border: 2px dashed var(--border-color);
@@ -651,6 +714,57 @@
         </div>
     </div>
 
+    <!-- Edit Product Modal -->
+    <div class="edit-modal-overlay" id="editModalOverlay" onclick="closeEditModal(event)">
+        <div class="edit-modal" onclick="event.stopPropagation()">
+            <div class="edit-modal-header">
+                <h3><i class="fas fa-edit"></i> تعديل المنتج</h3>
+                <button class="close-edit-modal" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="edit-modal-body">
+                <form id="editProductForm" onsubmit="saveProductEdit(event)">
+                    <input type="hidden" id="editProductId">
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label>اسم المنتج *</label>
+                        <input type="text" id="editProductName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>السعر (دج) *</label>
+                            <input type="number" id="editProductPrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label>السعر القديم</label>
+                            <input type="number" id="editProductOldPrice">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label>الوصف *</label>
+                        <textarea id="editProductDesc" rows="2" required></textarea>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label>الشارة</label>
+                        <input type="text" id="editProductBadge">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label>صورة جديدة (اختياري)</label>
+                        <div class="image-upload-box">
+                            <input type="file" id="editProductImage" accept="image/*" onchange="previewEditImage(this)">
+                            <div class="upload-placeholder" id="editUploadPlaceholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>اختر صورة جديدة</span>
+                            </div>
+                            <img id="editImagePreview" class="image-preview" style="display: none;">
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-save"></i> حفظ التعديلات
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         let orders = [];
         let products = [];
@@ -822,7 +936,10 @@
                         ${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
                         ${formatPrice(p.price)}
                     </div>
-                    <button class="delete-product-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                    <div class="product-actions">
+                        <button class="edit-product-btn" onclick="openEditModal(${p.id})"><i class="fas fa-edit"></i> تعديل</button>
+                        <button class="delete-product-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                    </div>
                 </div>
             `).join('');
         }
@@ -877,6 +994,86 @@
         async function deleteProduct(id) {
             if (!confirm('حذف هذا المنتج؟')) return;
             try { await fetch(`/api/products/${id}`, { method: 'DELETE' }); loadProducts(); } catch (e) { console.error(e); }
+        }
+
+        function openEditModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            document.getElementById('editProductId').value = product.id;
+            document.getElementById('editProductName').value = product.nameAr || '';
+            document.getElementById('editProductPrice').value = product.price || '';
+            document.getElementById('editProductOldPrice').value = product.oldPrice || '';
+            document.getElementById('editProductDesc').value = product.descriptionAr || '';
+            document.getElementById('editProductBadge').value = product.badge || '';
+            
+            // Reset image preview
+            document.getElementById('editImagePreview').style.display = 'none';
+            document.getElementById('editUploadPlaceholder').style.display = 'flex';
+            document.getElementById('editProductImage').value = '';
+            
+            document.getElementById('editModalOverlay').classList.add('active');
+        }
+
+        function closeEditModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('editModalOverlay').classList.remove('active');
+        }
+
+        function previewEditImage(input) {
+            const preview = document.getElementById('editImagePreview');
+            const placeholder = document.getElementById('editUploadPlaceholder');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        async function saveProductEdit(e) {
+            e.preventDefault();
+            const productId = document.getElementById('editProductId').value;
+            const imageInput = document.getElementById('editProductImage');
+            let imageBase64 = null;
+            
+            if (imageInput.files && imageInput.files[0]) {
+                imageBase64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(imageInput.files[0]);
+                });
+            }
+            
+            const data = {
+                nameAr: document.getElementById('editProductName').value,
+                price: document.getElementById('editProductPrice').value,
+                oldPrice: document.getElementById('editProductOldPrice').value || null,
+                descriptionAr: document.getElementById('editProductDesc').value,
+                badge: document.getElementById('editProductBadge').value || '',
+                image: imageBase64
+            };
+            
+            try {
+                const res = await fetch(`/api/products/${productId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (res.ok) {
+                    closeEditModal();
+                    loadProducts();
+                    alert('تم تعديل المنتج بنجاح!');
+                } else {
+                    alert('خطأ في تعديل المنتج');
+                }
+            } catch (e) {
+                alert('خطأ!');
+                console.error(e);
+            }
         }
 
         function formatPrice(p) { return p.toLocaleString('ar-DZ') + ' د.ج'; }

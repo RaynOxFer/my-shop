@@ -413,6 +413,44 @@ app.delete('/api/products/:id', adminAuth, (req, res) => {
     }
 });
 
+// API: Update product (Admin)
+app.put('/api/products/:id', adminAuth, (req, res) => {
+    const productId = parseInt(req.params.id);
+    const { nameAr, price, oldPrice, descriptionAr, badge, image } = req.body;
+    
+    const index = products.findIndex(p => p.id === productId);
+    if (index === -1) {
+        return res.status(404).json({ error: 'Product not found' });
+    }
+    
+    let imageName = products[index].image;
+    
+    // Save new product image if provided
+    if (image && image.startsWith('data:image')) {
+        const imageFileName = `product-${productId}-${Date.now()}.png`;
+        const base64Data = image.replace(/^data:image\/\w+;base64,/, '');
+        if (!fs.existsSync('product-images')) {
+            fs.mkdirSync('product-images', { recursive: true });
+        }
+        fs.writeFileSync(`product-images/${imageFileName}`, base64Data, 'base64');
+        imageName = imageFileName;
+    }
+    
+    products[index] = {
+        ...products[index],
+        name: nameAr,
+        nameAr,
+        price: parseInt(price),
+        oldPrice: oldPrice ? parseInt(oldPrice) : null,
+        description: descriptionAr,
+        descriptionAr,
+        image: imageName,
+        badge: badge || ""
+    };
+    
+    res.json({ success: true, product: products[index] });
+});
+
 // API: Get single product
 app.get('/api/products/:id', (req, res) => {
     const product = products.find(p => p.id === parseInt(req.params.id));
