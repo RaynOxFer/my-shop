@@ -503,7 +503,7 @@ app.post('/api/orders', (req, res) => {
             },
             items: items,
             totalPrice: totalPrice,
-            status: 'new'
+            status: 'pending'
         };
         
         // Save product image if provided

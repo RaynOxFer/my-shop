@@ -242,6 +242,7 @@
             font-weight: 600;
         }
 
+        .status-new { background: #e3f2fd; color: #1565c0; }
         .status-pending { background: #fff3cd; color: #856404; }
         .status-confirmed { background: #d1e7dd; color: #0f5132; }
         .status-shipped { background: #cff4fc; color: #055160; }
@@ -813,7 +814,7 @@
         function updateStats() {
             const stats = {
                 total: orders.length,
-                pending: orders.filter(o => o.status === 'pending').length,
+                pending: orders.filter(o => o.status === 'pending' || o.status === 'new').length,
                 confirmed: orders.filter(o => o.status === 'confirmed').length,
                 shipped: orders.filter(o => o.status === 'shipped').length,
                 delivered: orders.filter(o => o.status === 'delivered').length,
@@ -879,6 +880,7 @@
 
         function getStatusText(status) {
             const texts = {
+                new: 'جديد',
                 pending: 'في الانتظار',
                 confirmed: 'مؤكدة',
                 shipped: 'في الطريق',
@@ -891,9 +893,9 @@
         function getActionButtons(order) {
             let buttons = '';
             
-            if (order.status === 'pending') {
-                buttons += `<button class="action-btn btn-confirm" onclick="updateStatus('${order.id}', 'confirmed')"><i class="fas fa-check"></i> تأكيد</button>`;
-                buttons += `<button class="action-btn btn-cancel" onclick="updateStatus('${order.id}', 'cancelled')"><i class="fas fa-times"></i> إلغاء</button>`;
+            if (order.status === 'new' || order.status === 'pending') {
+                buttons += `<button class="action-btn btn-confirm" onclick="updateStatus('${order.id}', 'confirmed')"><i class="fas fa-check"></i> قبول</button>`;
+                buttons += `<button class="action-btn btn-cancel" onclick="updateStatus('${order.id}', 'cancelled')"><i class="fas fa-times"></i> رفض</button>`;
             } else if (order.status === 'confirmed') {
                 buttons += `<button class="action-btn btn-ship" onclick="updateStatus('${order.id}', 'shipped')"><i class="fas fa-truck"></i> شحن</button>`;
             } else if (order.status === 'shipped') {
