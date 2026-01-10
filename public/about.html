@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن - Bionobel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #2c1810 0%, #4a3020 50%, #8b5a2b 100%);
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(5px);
+        }
+        
+        .about-content {
+            padding: 60px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .about-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 2px solid var(--border-color);
+        }
+        
+        .about-section h2 {
+            color: #8b5a2b;
+            font-size: 28px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .about-section h2 i {
+            color: #c9a227;
+        }
+        
+        .about-section p {
+            color: var(--text-secondary);
+            line-height: 2;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, rgba(139, 90, 43, 0.1) 0%, rgba(201, 162, 39, 0.1) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(201, 162, 39, 0.3);
+        }
+        
+        .value-card i {
+            font-size: 40px;
+            color: #c9a227;
+            margin-bottom: 15px;
+        }
+        
+        .value-card h4 {
+            color: #8b5a2b;
+            margin-bottom: 10px;
+        }
+        
+        .value-card p {
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .social-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .social-section h3 {
+            color: #8b5a2b;
+            margin-bottom: 20px;
+        }
+        
+        .social-links-about {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-links-about a {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links-about a:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .social-links-about .facebook { background: linear-gradient(135deg, #1877f2, #0d65d9); }
+        .social-links-about .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-links-about .tiktok { background: linear-gradient(135deg, #000, #333); }
+        
+        .contact-info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+        }
+        
+        .contact-item i {
+            font-size: 24px;
+            color: #c9a227;
+        }
+        
+        .contact-item span {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-right"></i>
+        العودة للمتجر
+    </a>
+    
+    <div class="page-header">
+        <h1><i class="fas fa-leaf"></i> من نحن</h1>
+        <p>تعرف على Bionobel - البديل الصحي</p>
+    </div>
+    
+    <div class="container about-content">
+        <!-- About Section -->
+        <div class="about-section">
+            <h2><i class="fas fa-store"></i> عن Bionobel</h2>
+            <p>
+                <strong>Bionobel</strong> هو متجر جزائري متخصص في بيع التوابل والأدوية الطبيعية عالية الجودة. 
+                نؤمن بأن الطبيعة هي أفضل مصدر للصحة والجمال، لذلك نحرص على توفير منتجات طبيعية 100% 
+                بدون أي إضافات كيميائية.
+            </p>
+            <p>
+                بدأنا رحلتنا بهدف واحد: تقديم البديل الصحي الطبيعي للعائلات الجزائرية. 
+                نختار منتجاتنا بعناية فائقة من أفضل المصادر الطبيعية لنضمن لكم أعلى جودة بأسعار مناسبة.
+            </p>
+            <p>
+                نوصل منتجاتنا لجميع ولايات الجزائر الـ 58، مع خدمة الدفع عند الاستلام لراحتكم وأمانكم.
+            </p>
+        </div>
+        
+        <!-- Values Section -->
+        <div class="about-section">
+            <h2><i class="fas fa-heart"></i> قيمنا</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-leaf"></i>
+                    <h4>100% طبيعي</h4>
+                    <p>منتجات عضوية وطبيعية بدون مواد كيميائية</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>جودة مضمونة</h4>
+                    <p>نختار أفضل المنتجات من مصادر موثوقة</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h4>صحة العائلة</h4>
+                    <p>نهتم بصحتكم وصحة عائلتكم</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-truck"></i>
+                    <h4>توصيل سريع</h4>
+                    <p>نوصل لجميع ولايات الجزائر</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Products Section -->
+        <div class="about-section">
+            <h2><i class="fas fa-box-open"></i> منتجاتنا</h2>
+            <p>نوفر مجموعة متنوعة من المنتجات الطبيعية:</p>
+            <ul style="color: var(--text-secondary); line-height: 2.5; padding-right: 20px;">
+                <li>🍯 <strong>العسل الطبيعي</strong> - عسل نقي 100% من الجبال</li>
+                <li>🌿 <strong>زيت الأركان</strong> - للبشرة والشعر</li>
+                <li>🖤 <strong>زيت الحبة السوداء</strong> - حبة البركة الطبيعية</li>
+                <li>🫒 <strong>زيت الزيتون البكر</strong> - زيت زيتون ممتاز</li>
+                <li>🥥 <strong>زيت جوز الهند</strong> - عضوي ونقي</li>
+                <li>🌹 <strong>ماء الورد</strong> - للعناية بالبشرة</li>
+                <li>🌿 <strong>التوابل الطبيعية</strong> - توابل نقية بدون إضافات</li>
+                <li>🍵 <strong>الأعشاب الطبية</strong> - خلطات طبيعية للصحة</li>
+            </ul>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="about-section">
+            <h2><i class="fas fa-phone-alt"></i> تواصل معنا</h2>
+            <div class="contact-info-section">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>0550140140</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>درارية، الجزائر</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-truck"></i>
+                    <span>توصيل لـ 58 ولاية</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>الدفع عند الاستلام</span>
+                </div>
+            </div>
+            
+            <div class="social-section">
+                <h3>تابعونا على مواقع التواصل</h3>
+                <div class="social-links-about">
+                    <a href="https://www.facebook.com/profile.php?id=61578299254849" target="_blank" class="facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/bio_nobel/" target="_blank" class="instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@bio_nobel" target="_blank" class="tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Load theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
