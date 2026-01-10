@@ -631,19 +631,14 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-// Start server (only in non-Vercel environment)
-if (process.env.VERCEL !== '1') {
-    app.listen(PORT, () => {
-        console.log('========================================');
-        console.log('🛒 MY SHOP SERVER STARTED');
-        console.log('========================================');
-        console.log(`Shop URL: http://localhost:${PORT}`);
-        console.log(`Admin Panel: http://localhost:${PORT}/admin`);
-        console.log('========================================');
-        console.log('Waiting for orders...');
-        console.log('');
-    });
-}
-
-// Export for Vercel
-module.exports = app;
+// Start server
+app.listen(PORT, () => {
+    console.log('========================================');
+    console.log('🛒 MY SHOP SERVER STARTED');
+    console.log('========================================');
+    console.log(`Shop URL: http://localhost:${PORT}`);
+    console.log(`Admin Panel: http://localhost:${PORT}/admin`);
+    console.log('========================================');
+    console.log('Waiting for orders...');
+    console.log('');
+});
