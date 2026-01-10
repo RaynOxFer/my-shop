@@ -635,10 +635,22 @@ body {
     margin-top: 15px;
 }
 
+.product-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
 .product-price {
     font-size: 20px;
     font-weight: 800;
     color: #2e8b57;
+}
+
+.old-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
 }
 
 .add-to-cart-btn {
@@ -952,7 +964,7 @@ body {
     box-shadow: -5px 0 30px var(--shadow-color);
 }
 
-.cart-sidebar.active {
+.cart-sidebar.open {
     right: 0;
 }
 
@@ -995,10 +1007,93 @@ body {
 .cart-item {
     display: flex;
     gap: 15px;
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
     background: var(--bg-input);
     margin-bottom: 15px;
+    align-items: center;
+}
+
+.cart-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.cart-item-info p {
+    color: #2e8b57;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-item-quantity button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: var(--bg-card);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+    color: var(--text-primary);
+}
+
+.cart-item-quantity button:hover {
+    background: #2e8b57;
+    color: white;
+}
+
+.cart-item-quantity span {
+    font-weight: 700;
+    font-size: 14px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    transition: transform 0.3s;
+}
+
+.remove-item:hover {
+    transform: scale(1.2);
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-cart i {
+    font-size: 60px;
+    color: var(--border-color);
+    margin-bottom: 15px;
+    display: block;
 }
 
 .cart-item-image {

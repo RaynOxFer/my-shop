@@ -365,12 +365,12 @@ app.get('/api/products', (req, res) => {
         id: p.id,
         name: p.nameAr || p.name,
         price: p.price,
-        oldPrice: p.oldPrice,
+        oldPrice: p.oldPrice || null,
         description: p.descriptionAr || p.description,
         image: p.image && (p.image.startsWith('http') || p.image.startsWith('/') || p.image.includes('.png') || p.image.includes('.jpg')) 
             ? (p.image.includes('/') ? p.image : `/product-images/${p.image}`)
             : `https://via.placeholder.com/300x300/2e8b57/ffffff?text=${encodeURIComponent(p.nameAr || p.name)}`,
-        badge: p.badge
+        badge: p.badge || ''
     }));
     res.json(mappedProducts);
 });

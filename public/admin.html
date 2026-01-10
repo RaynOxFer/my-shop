@@ -721,6 +721,14 @@
                         <input type="number" id="productPrice" required placeholder="2500">
                     </div>
                     <div class="form-group">
+                        <label>السعر القديم (د.ج) - اختياري</label>
+                        <input type="number" id="productOldPrice" placeholder="3000">
+                    </div>
+                    <div class="form-group">
+                        <label>الشارة (Badge)</label>
+                        <input type="text" id="productBadge" placeholder="مثال: جديد، عرض خاص">
+                    </div>
+                    <div class="form-group">
                         <label>وصف المنتج</label>
                         <textarea id="productDescription" placeholder="وصف مختصر للمنتج..."></textarea>
                     </div>
@@ -972,6 +980,8 @@
             document.getElementById('modalTitle').textContent = 'إضافة منتج';
             document.getElementById('productForm').reset();
             document.getElementById('imagePreview').innerHTML = '<span>معاينة الصورة</span>';
+            document.getElementById('productOldPrice').value = '';
+            document.getElementById('productBadge').value = '';
             document.getElementById('productModal').classList.add('active');
         }
 
@@ -988,6 +998,8 @@
             document.getElementById('productId').value = id;
             document.getElementById('productName').value = product.name;
             document.getElementById('productPrice').value = product.price;
+            document.getElementById('productOldPrice').value = product.oldPrice || '';
+            document.getElementById('productBadge').value = product.badge || '';
             document.getElementById('productDescription').value = product.description || '';
             
             if (product.image) {
@@ -1013,6 +1025,8 @@
 
             const name = document.getElementById('productName').value;
             const price = document.getElementById('productPrice').value;
+            const oldPrice = document.getElementById('productOldPrice').value;
+            const badge = document.getElementById('productBadge').value;
             const description = document.getElementById('productDescription').value;
             
             // Convert image to base64 if selected
@@ -1029,6 +1043,8 @@
             const productData = {
                 nameAr: name,
                 price: price,
+                oldPrice: oldPrice || null,
+                badge: badge || '',
                 descriptionAr: description,
                 image: imageBase64
             };

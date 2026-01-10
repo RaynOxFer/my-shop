@@ -59,9 +59,9 @@ function renderProducts(filteredProducts = null) {
     
     grid.innerHTML = productsToRender.map(product => `
         <div class="product-card" data-id="${product.id}">
-            <div class="product-badge">جديد</div>
+            ${product.badge ? `<div class="product-badge">${product.badge}</div>` : '<div class="product-badge">جديد</div>'}
             <div class="product-image" onclick="openProductModal(${product.id})">
-                <img src="${product.image || 'https://via.placeholder.com/300x300?text=منتج+طبيعي'}" alt="${product.name}" loading="lazy">
+                <img src="${product.image || 'https://via.placeholder.com/300x300/2e8b57/ffffff?text=منتج'}" alt="${product.name}" loading="lazy">
                 <div class="product-overlay">
                     <button class="quick-view-btn">
                         <i class="fas fa-eye"></i> معاينة سريعة
@@ -72,8 +72,11 @@ function renderProducts(filteredProducts = null) {
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-description">${product.description || 'منتج طبيعي 100%'}</p>
                 <div class="product-footer">
-                    <span class="product-price">${product.price.toLocaleString()} د.ج</span>
-                    <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                    <div class="product-prices">
+                        <span class="product-price">${product.price.toLocaleString()} د.ج</span>
+                        ${product.oldPrice ? `<span class="old-price">${product.oldPrice.toLocaleString()} د.ج</span>` : ''}
+                    </div>
+                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})">
                         <i class="fas fa-cart-plus"></i>
                     </button>
                 </div>
