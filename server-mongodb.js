@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://bionobel:shop2024@cluster0.mech8jq.mongodb.net/bionobel_shop?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/bionobel_shop';
 
 mongoose.connect(MONGODB_URI)
     .then(() => {
