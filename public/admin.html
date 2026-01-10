@@ -454,6 +454,47 @@
 
         .delete-product-btn:hover { background: #c0392b; }
 
+        .image-upload-box {
+            position: relative;
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            height: 100px;
+        }
+
+        .image-upload-box:hover { border-color: var(--accent); }
+
+        .image-upload-box input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer; z-index: 2;
+        }
+
+        .upload-placeholder {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100%; color: var(--text-secondary); font-size: 12px; gap: 5px;
+        }
+
+        .upload-placeholder i { font-size: 24px; color: var(--accent); }
+
+        .image-preview {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .product-item-image {
+            width: 60px; height: 60px; border-radius: 8px; object-fit: cover;
+            background: var(--bg-input); border: 1px solid var(--border-color);
+        }
+
+        .product-item-image-placeholder {
+            width: 60px; height: 60px; border-radius: 8px;
+            background: var(--bg-input); border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-secondary); font-size: 20px;
+        }
+
         .empty-state {
             text-align: center;
             padding: 40px;
@@ -584,6 +625,19 @@
                                 <label>الشارة</label>
                                 <input type="text" id="productBadge" placeholder="جديد، عرض خاص">
                             </div>
+                            <div class="form-group">
+                                <label>صورة المنتج</label>
+                                <div class="image-upload-box">
+                                    <input type="file" id="productImage" accept="image/*" onchange="previewImage(this)">
+                                    <div class="upload-placeholder" id="uploadPlaceholder">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>اختر صورة</span>
+                                    </div>
+                                    <img id="imagePreview" class="image-preview" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group" style="justify-content: flex-end;">
                                 <button type="submit" class="submit-btn">
                                     <i class="fas fa-plus"></i> إضافة
@@ -756,6 +810,9 @@
             }
             list.innerHTML = products.map(p => `
                 <div class="product-item">
+                    ${p.image && p.image !== 'spices-default.svg' ? 
+                        `<img src="/product-images/${p.image}" class="product-item-image" onerror="this.outerHTML='<div class=product-item-image-placeholder><i class=fas fa-pepper-hot></i></div>'">` : 
+                        `<div class="product-item-image-placeholder"><i class="fas fa-pepper-hot"></i></div>`}
                     <div class="product-item-info">
                         <h4>${p.nameAr}</h4>
                         <p>${p.descriptionAr || ''}</p>
@@ -770,18 +827,50 @@
             `).join('');
         }
 
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            const placeholder = document.getElementById('uploadPlaceholder');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
         async function addProduct(e) {
             e.preventDefault();
+            const imageInput = document.getElementById('productImage');
+            let imageBase64 = null;
+            
+            if (imageInput.files && imageInput.files[0]) {
+                imageBase64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(imageInput.files[0]);
+                });
+            }
+            
             const data = {
                 nameAr: document.getElementById('productName').value,
                 price: document.getElementById('productPrice').value,
                 oldPrice: document.getElementById('productOldPrice').value || null,
                 descriptionAr: document.getElementById('productDesc').value,
-                badge: document.getElementById('productBadge').value || ''
+                badge: document.getElementById('productBadge').value || '',
+                image: imageBase64
             };
             try {
                 const res = await fetch('/api/products/add', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-                if (res.ok) { document.getElementById('addProductForm').reset(); loadProducts(); alert('تم إضافة المنتج!'); }
+                if (res.ok) { 
+                    document.getElementById('addProductForm').reset();
+                    document.getElementById('imagePreview').style.display = 'none';
+                    document.getElementById('uploadPlaceholder').style.display = 'flex';
+                    loadProducts(); 
+                    alert('تم إضافة المنتج!'); 
+                }
             } catch (e) { alert('خطأ!'); }
         }
 

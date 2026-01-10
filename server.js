@@ -255,9 +255,10 @@ app.use('/api/orders', (req, res, next) => {
 app.use(express.static('public'));
 app.use('/images', express.static('images'));
 app.use('/order-images', express.static('order-images'));
+app.use('/product-images', express.static('product-images'));
 
 // Ensure required directories exist
-const dirs = ['orders', 'order-images', 'images', 'public'];
+const dirs = ['orders', 'order-images', 'images', 'public', 'product-images'];
 dirs.forEach(dir => {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
@@ -369,8 +370,22 @@ app.get('/api/products', (req, res) => {
 
 // API: Add new product (Admin)
 app.post('/api/products/add', adminAuth, (req, res) => {
-    const { nameAr, price, oldPrice, descriptionAr, badge } = req.body;
+    const { nameAr, price, oldPrice, descriptionAr, badge, image } = req.body;
     const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+    
+    let imageName = 'spices-default.svg';
+    
+    // Save product image if provided
+    if (image && image.startsWith('data:image')) {
+        const imageFileName = `product-${newId}-${Date.now()}.png`;
+        const base64Data = image.replace(/^data:image\/\w+;base64,/, '');
+        if (!fs.existsSync('product-images')) {
+            fs.mkdirSync('product-images', { recursive: true });
+        }
+        fs.writeFileSync(`product-images/${imageFileName}`, base64Data, 'base64');
+        imageName = imageFileName;
+    }
+    
     const newProduct = {
         id: newId,
         name: nameAr,
@@ -379,7 +394,7 @@ app.post('/api/products/add', adminAuth, (req, res) => {
         oldPrice: oldPrice ? parseInt(oldPrice) : null,
         description: descriptionAr,
         descriptionAr,
-        image: "spices-default.svg",
+        image: imageName,
         badge: badge || ""
     };
     products.push(newProduct);
