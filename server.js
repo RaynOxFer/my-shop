@@ -3,6 +3,14 @@ const path = require('path');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
+
+// Cloudinary Configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'ddtl6gs9k',
+    api_key: process.env.CLOUDINARY_API_KEY || '474698471155164',
+    api_secret: process.env.CLOUDINARY_API_SECRET || 'g65AVvsZK_3R_PSL8koVoJi8nVc'
+});
 
 // Load models
 const Product = require('./models/Product');
@@ -314,8 +322,23 @@ app.post('/api/products/add', async (req, res) => {
         const lastProduct = await Product.findOne().sort({ productId: -1 });
         const newId = lastProduct ? lastProduct.productId + 1 : 1;
         
-        // Store image directly (base64 or URL)
-        let imageData = image || '';
+        // Upload image to Cloudinary if base64
+        let imageUrl = '';
+        if (image && image.startsWith('data:image')) {
+            try {
+                const uploadResult = await cloudinary.uploader.upload(image, {
+                    folder: 'bionobel-products',
+                    public_id: `product-${newId}-${Date.now()}`
+                });
+                imageUrl = uploadResult.secure_url;
+                console.log('✅ Image uploaded to Cloudinary:', imageUrl);
+            } catch (uploadError) {
+                console.error('❌ Cloudinary upload error:', uploadError.message);
+                imageUrl = image; // Fallback to base64 if upload fails
+            }
+        } else if (image) {
+            imageUrl = image; // Keep URL as is
+        }
         
         const newProduct = new Product({
             productId: newId,
@@ -325,7 +348,7 @@ app.post('/api/products/add', async (req, res) => {
             oldPrice: oldPrice ? parseInt(oldPrice) : null,
             description: descriptionAr,
             descriptionAr,
-            image: imageData,
+            image: imageUrl,
             badge: badge || ""
         });
         
@@ -362,8 +385,23 @@ app.put('/api/products/:id', async (req, res) => {
             return res.status(404).json({ error: 'Product not found' });
         }
         
-        // Store image directly (base64 or URL) - keep old image if not changed
-        let imageData = image || product.image;
+        // Upload new image to Cloudinary if base64, keep old if not changed
+        let imageUrl = product.image;
+        if (image && image.startsWith('data:image')) {
+            try {
+                const uploadResult = await cloudinary.uploader.upload(image, {
+                    folder: 'bionobel-products',
+                    public_id: `product-${productId}-${Date.now()}`
+                });
+                imageUrl = uploadResult.secure_url;
+                console.log('✅ Image updated on Cloudinary:', imageUrl);
+            } catch (uploadError) {
+                console.error('❌ Cloudinary upload error:', uploadError.message);
+                imageUrl = image; // Fallback to base64 if upload fails
+            }
+        } else if (image) {
+            imageUrl = image; // Keep URL as is
+        }
         
         product.name = nameAr;
         product.nameAr = nameAr;
@@ -371,7 +409,7 @@ app.put('/api/products/:id', async (req, res) => {
         product.oldPrice = oldPrice ? parseInt(oldPrice) : null;
         product.description = descriptionAr;
         product.descriptionAr = descriptionAr;
-        product.image = imageData;
+        product.image = imageUrl;
         product.badge = badge || "";
         
         await product.save();
