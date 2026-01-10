@@ -208,11 +208,11 @@ function adminAuth(req, res, next) {
     }
 }
 
-// Protect admin page
-app.get('/admin', adminAuth, (req, res) => {
+// Admin page - no auth required
+app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
-app.get('/admin.html', adminAuth, (req, res) => {
+app.get('/admin.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
@@ -242,14 +242,9 @@ app.get('/logout', (req, res) => {
     `);
 });
 
-// Protect admin API routes
+// Admin API routes - no auth required
 app.use('/api/orders', (req, res, next) => {
-    // Allow POST (creating orders) without auth
-    if (req.method === 'POST') {
-        return next();
-    }
-    // All other methods (GET, PUT, DELETE) require auth
-    adminAuth(req, res, next);
+    next();
 });
 
 app.use(express.static('public'));
@@ -381,7 +376,7 @@ app.get('/api/products', (req, res) => {
 });
 
 // API: Add new product (Admin)
-app.post('/api/products/add', adminAuth, (req, res) => {
+app.post('/api/products/add', (req, res) => {
     const { nameAr, price, oldPrice, descriptionAr, badge, image } = req.body;
     const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
     
@@ -414,7 +409,7 @@ app.post('/api/products/add', adminAuth, (req, res) => {
 });
 
 // API: Delete product (Admin)
-app.delete('/api/products/:id', adminAuth, (req, res) => {
+app.delete('/api/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
     const index = products.findIndex(p => p.id === productId);
     if (index !== -1) {
@@ -426,7 +421,7 @@ app.delete('/api/products/:id', adminAuth, (req, res) => {
 });
 
 // API: Update product (Admin)
-app.put('/api/products/:id', adminAuth, (req, res) => {
+app.put('/api/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
     const { nameAr, price, oldPrice, descriptionAr, badge, image } = req.body;
     

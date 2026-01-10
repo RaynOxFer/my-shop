@@ -792,11 +792,7 @@
         // Load orders
         async function loadOrders() {
             try {
-                const response = await fetch('/api/orders', {
-                    headers: {
-                        'Authorization': 'Basic ' + btoa('admin:shop2024')
-                    }
-                });
+                const response = await fetch('/api/orders');
                 orders = await response.json();
                 updateStats();
                 renderOrders();
@@ -907,8 +903,7 @@
                 const response = await fetch(`/api/orders/${orderId}/status`, {
                     method: 'PUT',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Basic ' + btoa('admin:shop2024')
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ status })
                 });
@@ -928,10 +923,7 @@
 
             try {
                 const response = await fetch(`/api/orders/${orderId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': 'Basic ' + btoa('admin:shop2024')
-                    }
+                    method: 'DELETE'
                 });
 
                 if (response.ok) {
@@ -1054,8 +1046,7 @@
                 const response = await fetch(url, {
                     method: method,
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Basic ' + btoa('admin:shop2024')
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(productData)
                 });
@@ -1077,10 +1068,7 @@
 
             try {
                 const response = await fetch(`/api/products/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': 'Basic ' + btoa('admin:shop2024')
-                    }
+                    method: 'DELETE'
                 });
 
                 if (response.ok) {
