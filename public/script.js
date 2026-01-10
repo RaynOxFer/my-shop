@@ -55,6 +55,17 @@ function formatPrice(price) {
     return price.toLocaleString('ar-DZ') + ' د.ج';
 }
 
+// Get the correct image path for a product
+function getProductImagePath(product) {
+    if (!product.image) return '';
+    // If image is uploaded (starts with 'product-'), use product-images folder
+    if (product.image.startsWith('product-')) {
+        return `/product-images/${product.image}`;
+    }
+    // Otherwise use images folder for default images
+    return `/images/${product.image}`;
+}
+
 // Render products grid
 function renderProducts() {
     const grid = document.getElementById('productsGrid');
@@ -62,7 +73,7 @@ function renderProducts() {
         <div class="product-card" data-name="${product.name}" data-name-ar="${product.nameAr || ''}">
             ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
             <div class="product-image" onclick="openProductModal(${product.id})">
-                <img src="/images/${product.image}" alt="${product.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-image product-placeholder\\'></i>'">
+                <img src="${getProductImagePath(product)}" alt="${product.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-pepper-hot product-placeholder\\'></i>'">
                 <div class="product-overlay">
                     <button onclick="event.stopPropagation(); openProductModal(${product.id})">
                         <i class="fas fa-eye"></i> عرض سريع
@@ -72,7 +83,10 @@ function renderProducts() {
             <div class="product-info">
                 <h3 class="product-name">${product.nameAr || product.name}</h3>
                 <p class="product-description">${product.descriptionAr || product.description}</p>
-                <p class="product-price">${formatPrice(product.price)}</p>
+                <p class="product-price">
+                    ${product.oldPrice ? `<span class="old-price">${formatPrice(product.oldPrice)}</span>` : ''}
+                    ${formatPrice(product.price)}
+                </p>
                 <button class="btn-add" onclick="addToCart(${product.id})">
                     <i class="fas fa-cart-plus"></i> أضف إلى السلة
                 </button>
@@ -173,10 +187,12 @@ function updateCartUI() {
         `;
         checkoutBtn.disabled = true;
     } else {
-        cartItems.innerHTML = cart.map(item => `
+        cartItems.innerHTML = cart.map(item => {
+            const imgPath = item.image && item.image.startsWith('product-') ? `/product-images/${item.image}` : `/images/${item.image}`;
+            return `
             <div class="cart-item">
                 <div class="cart-item-image">
-                    <img src="/images/${item.image}" alt="${item.nameAr}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-image\\'></i>'">
+                    <img src="${imgPath}" alt="${item.nameAr}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-pepper-hot\\'></i>'">
                 </div>
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.nameAr}</div>
@@ -191,7 +207,7 @@ function updateCartUI() {
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
-        `).join('');
+        `}).join('');
         checkoutBtn.disabled = false;
     }
 
@@ -268,9 +284,10 @@ async function submitOrder(event) {
     try {
         const firstProduct = products.find(p => p.id === cart[0].id);
         if (firstProduct) {
+            const imgPath = getProductImagePath(firstProduct);
             const img = new Image();
             img.crossOrigin = 'anonymous';
-            img.src = `/images/${firstProduct.image}`;
+            img.src = imgPath;
             
             await new Promise((resolve, reject) => {
                 img.onload = resolve;
@@ -343,12 +360,19 @@ function openProductModal(productId) {
     if (!currentProduct) return;
 
     document.getElementById('modalProductName').textContent = currentProduct.nameAr || currentProduct.name;
-    document.getElementById('modalProductPrice').textContent = formatPrice(currentProduct.price);
+    
+    // Show old price with strikethrough if exists
+    const priceHTML = currentProduct.oldPrice 
+        ? `<span class="old-price">${formatPrice(currentProduct.oldPrice)}</span> ${formatPrice(currentProduct.price)}`
+        : formatPrice(currentProduct.price);
+    document.getElementById('modalProductPrice').innerHTML = priceHTML;
+    
     document.getElementById('modalProductDescription').textContent = currentProduct.descriptionAr || currentProduct.description;
     document.getElementById('modalQuantity').value = 1;
 
     const imageContainer = document.getElementById('modalProductImage');
-    imageContainer.innerHTML = `<img src="/images/${currentProduct.image}" alt="${currentProduct.nameAr || currentProduct.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-image\\' style=\\'font-size:60px;color:#ccc;\\'></i>'">`;
+    const imgPath = getProductImagePath(currentProduct);
+    imageContainer.innerHTML = `<img src="${imgPath}" alt="${currentProduct.nameAr || currentProduct.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-pepper-hot\\' style=\\'font-size:60px;color:#ccc;\\'></i>'">`;
 
     document.getElementById('productModal').classList.add('active');
 }
