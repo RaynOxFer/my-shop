@@ -817,7 +817,7 @@
                 confirmed: orders.filter(o => o.status === 'confirmed').length,
                 shipped: orders.filter(o => o.status === 'shipped').length,
                 delivered: orders.filter(o => o.status === 'delivered').length,
-                revenue: orders.filter(o => o.status === 'delivered').reduce((sum, o) => sum + o.total, 0)
+                revenue: orders.filter(o => o.status === 'delivered').reduce((sum, o) => sum + (o.totalPrice || o.total || 0), 0)
             };
 
             document.getElementById('totalOrders').textContent = stats.total;
@@ -869,7 +869,7 @@
                         <h4><i class="fas fa-shopping-bag"></i> المنتجات:</h4>
                         ${order.items.map(item => `${item.name} × ${item.quantity}`).join(' | ')}
                     </div>
-                    <div class="order-total">المجموع: ${order.total.toLocaleString()} د.ج</div>
+                    <div class="order-total">المجموع: ${(order.totalPrice || order.total || 0).toLocaleString()} د.ج</div>
                     <div class="order-actions">
                         ${getActionButtons(order)}
                     </div>

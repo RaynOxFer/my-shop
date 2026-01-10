@@ -262,7 +262,7 @@ async function submitOrder(event) {
             price: item.price,
             quantity: item.quantity
         })),
-        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+        totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
     };
     
     try {
