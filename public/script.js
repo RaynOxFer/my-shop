@@ -1,4 +1,4 @@
-// Shopping Cart State
+﻿// Shopping Cart State
 let cart = [];
 let products = [];
 let currentProduct = null;
@@ -46,13 +46,13 @@ async function loadProducts() {
         renderProducts();
     } catch (error) {
         console.error('Error loading products:', error);
-        showToast('خطأ في تحميل المنتجات', 'error');
+        showToast('Ø®Ø·Ø£ ÙÙŠ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª', 'error');
     }
 }
 
 // Format price in DZD
 function formatPrice(price) {
-    return price.toLocaleString('ar-DZ') + ' د.ج';
+    return price.toLocaleString('ar-DZ') + ' Ø¯.Ø¬';
 }
 
 // Get the correct image path for a product
@@ -73,10 +73,10 @@ function renderProducts() {
         <div class="product-card" data-name="${product.name}" data-name-ar="${product.nameAr || ''}">
             ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
             <div class="product-image" onclick="openProductModal(${product.id})">
-                <img src="${getProductImagePath(product)}" alt="${product.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-pepper-hot product-placeholder\\'></i>'">
+                <img src="${getProductImagePath(product)}" alt="${product.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-leaf product-placeholder\\'></i>'">
                 <div class="product-overlay">
                     <button onclick="event.stopPropagation(); openProductModal(${product.id})">
-                        <i class="fas fa-eye"></i> عرض سريع
+                        <i class="fas fa-eye"></i> Ø¹Ø±Ø¶ Ø³Ø±ÙŠØ¹
                     </button>
                 </div>
             </div>
@@ -88,7 +88,7 @@ function renderProducts() {
                     ${formatPrice(product.price)}
                 </p>
                 <button class="btn-add" onclick="addToCart(${product.id})">
-                    <i class="fas fa-cart-plus"></i> أضف إلى السلة
+                    <i class="fas fa-cart-plus"></i> Ø£Ø¶Ù Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©
                 </button>
             </div>
         </div>
@@ -137,7 +137,7 @@ function addToCart(productId, quantity = 1) {
 
     saveCartToStorage();
     updateCartUI();
-    showToast(`تمت إضافة ${product.nameAr || product.name} إلى السلة!`, 'success');
+    showToast(`ØªÙ…Øª Ø¥Ø¶Ø§ÙØ© ${product.nameAr || product.name} Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©!`, 'success');
 }
 
 // Remove item from cart
@@ -182,7 +182,7 @@ function updateCartUI() {
         cartItems.innerHTML = `
             <div class="cart-empty">
                 <i class="fas fa-shopping-cart"></i>
-                <p>سلة التسوق فارغة</p>
+                <p>Ø³Ù„Ø© Ø§Ù„ØªØ³ÙˆÙ‚ ÙØ§Ø±ØºØ©</p>
             </div>
         `;
         checkoutBtn.disabled = true;
@@ -192,7 +192,7 @@ function updateCartUI() {
             return `
             <div class="cart-item">
                 <div class="cart-item-image">
-                    <img src="${imgPath}" alt="${item.nameAr}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-pepper-hot\\'></i>'">
+                    <img src="${imgPath}" alt="${item.nameAr}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-leaf\\'></i>'">
                 </div>
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.nameAr}</div>
@@ -235,7 +235,7 @@ function openCheckout() {
     // Populate checkout items
     checkoutItems.innerHTML = cart.map(item => `
         <div class="checkout-item">
-            <span>${item.nameAr} × ${item.quantity}</span>
+            <span>${item.nameAr} Ã— ${item.quantity}</span>
             <span>${formatPrice(item.price * item.quantity)}</span>
         </div>
     `).join('');
@@ -258,7 +258,7 @@ async function submitOrder(event) {
 
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="loading"></span> جاري المعالجة...';
+    submitBtn.innerHTML = '<span class="loading"></span> Ø¬Ø§Ø±ÙŠ Ø§Ù„Ù…Ø¹Ø§Ù„Ø¬Ø©...';
 
     const formData = {
         customer: {
@@ -332,15 +332,15 @@ async function submitOrder(event) {
             // Reset form
             document.getElementById('checkoutForm').reset();
         } else {
-            showToast(result.error || 'فشل في إرسال الطلب', 'error');
+            showToast(result.error || 'ÙØ´Ù„ ÙÙŠ Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø·Ù„Ø¨', 'error');
         }
     } catch (error) {
         console.error('Error submitting order:', error);
-        showToast('خطأ في إرسال الطلب. حاول مرة أخرى.', 'error');
+        showToast('Ø®Ø·Ø£ ÙÙŠ Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø·Ù„Ø¨. Ø­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.', 'error');
     }
 
     submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> تأكيد الطلب';
+    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø·Ù„Ø¨';
 }
 
 // Show success modal
@@ -372,7 +372,7 @@ function openProductModal(productId) {
 
     const imageContainer = document.getElementById('modalProductImage');
     const imgPath = getProductImagePath(currentProduct);
-    imageContainer.innerHTML = `<img src="${imgPath}" alt="${currentProduct.nameAr || currentProduct.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-pepper-hot\\' style=\\'font-size:60px;color:#ccc;\\'></i>'">`;
+    imageContainer.innerHTML = `<img src="${imgPath}" alt="${currentProduct.nameAr || currentProduct.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-leaf\\' style=\\'font-size:60px;color:#ccc;\\'></i>'">`;
 
     document.getElementById('productModal').classList.add('active');
 }
@@ -479,3 +479,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+

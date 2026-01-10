@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم - توابل مغنية</title>
+    <title>Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… - Ø±Ø§Ø­Ø© Ø¨ÙŠÙˆ</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,15 +18,15 @@
             --text-secondary: #666666;
             --border-color: #e0e0e0;
             --shadow-color: rgba(0, 0, 0, 0.05);
-            --accent: #c41e3a;
-            --accent-hover: #a01830;
+            --accent: #2e8b57;
+            --accent-hover: #228b22;
         }
 
         [data-theme="dark"] {
-            --bg-primary: #1a1512;
-            --bg-secondary: #231c17;
-            --bg-card: #2a221c;
-            --bg-input: #352b24;
+            --bg-primary: #121a12;
+            --bg-secondary: #172317;
+            --bg-card: #1c2a1c;
+            --bg-input: #243524;
             --text-primary: #ffffff;
             --text-secondary: #b0b0b0;
             --border-color: #3d332a;
@@ -42,7 +42,7 @@
         }
 
         .admin-header {
-            background: linear-gradient(135deg, #c41e3a 0%, #a01830 100%);
+            background: linear-gradient(135deg, #2e8b57 0%, #228b22 100%);
             color: white;
             padding: 15px 20px;
             position: fixed;
@@ -576,11 +576,11 @@
 <body>
     <header class="admin-header">
         <div class="container">
-            <h1><i class="fas fa-cog"></i> توابل مغنية - لوحة التحكم</h1>
+            <h1><i class="fas fa-cog"></i> ØªÙˆØ§Ø¨Ù„ Ù…ØºÙ†ÙŠØ© - Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ…</h1>
             <div class="header-buttons">
-                <button onclick="toggleTheme()"><i class="fas fa-moon"></i> الوضع</button>
-                <a href="/"><i class="fas fa-store"></i> المتجر</a>
-                <a href="/logout"><i class="fas fa-sign-out-alt"></i> خروج</a>
+                <button onclick="toggleTheme()"><i class="fas fa-moon"></i> Ø§Ù„ÙˆØ¶Ø¹</button>
+                <a href="/"><i class="fas fa-store"></i> Ø§Ù„Ù…ØªØ¬Ø±</a>
+                <a href="/logout"><i class="fas fa-sign-out-alt"></i> Ø®Ø±ÙˆØ¬</a>
             </div>
         </div>
     </header>
@@ -590,66 +590,66 @@
             <div class="stat-card">
                 <i class="fas fa-shopping-bag"></i>
                 <h3 id="totalOrders">0</h3>
-                <p>إجمالي الطلبات</p>
+                <p>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-hourglass-half"></i>
                 <h3 id="newOrders">0</h3>
-                <p>جديدة</p>
+                <p>Ø¬Ø¯ÙŠØ¯Ø©</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-truck"></i>
                 <h3 id="shippedOrders">0</h3>
-                <p>قيد الشحن</p>
+                <p>Ù‚ÙŠØ¯ Ø§Ù„Ø´Ø­Ù†</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-check-circle"></i>
                 <h3 id="completedOrders">0</h3>
-                <p>مكتملة</p>
+                <p>Ù…ÙƒØªÙ…Ù„Ø©</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-coins"></i>
                 <h3 id="totalRevenue">0</h3>
-                <p>المبيعات</p>
+                <p>Ø§Ù„Ù…Ø¨ÙŠØ¹Ø§Øª</p>
             </div>
         </div>
 
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="showTab('all', this)">
-                <i class="fas fa-list"></i> الكل <span class="count" id="allCount">0</span>
+                <i class="fas fa-list"></i> Ø§Ù„ÙƒÙ„ <span class="count" id="allCount">0</span>
             </button>
             <button class="tab-btn" onclick="showTab('new', this)">
-                <i class="fas fa-bell"></i> جديدة <span class="count" id="newCount">0</span>
+                <i class="fas fa-bell"></i> Ø¬Ø¯ÙŠØ¯Ø© <span class="count" id="newCount">0</span>
             </button>
             <button class="tab-btn" onclick="showTab('confirmed', this)">
-                <i class="fas fa-check"></i> مؤكدة <span class="count" id="confirmedCount">0</span>
+                <i class="fas fa-check"></i> Ù…Ø¤ÙƒØ¯Ø© <span class="count" id="confirmedCount">0</span>
             </button>
             <button class="tab-btn" onclick="showTab('shipped', this)">
-                <i class="fas fa-truck"></i> الشحن <span class="count" id="shippedCount">0</span>
+                <i class="fas fa-truck"></i> Ø§Ù„Ø´Ø­Ù† <span class="count" id="shippedCount">0</span>
             </button>
             <button class="tab-btn" onclick="showTab('completed', this)">
-                <i class="fas fa-check-double"></i> مكتملة <span class="count" id="completedCount">0</span>
+                <i class="fas fa-check-double"></i> Ù…ÙƒØªÙ…Ù„Ø© <span class="count" id="completedCount">0</span>
             </button>
             <button class="tab-btn" onclick="showTab('cancelled', this)">
-                <i class="fas fa-times"></i> ملغاة <span class="count" id="cancelledCount">0</span>
+                <i class="fas fa-times"></i> Ù…Ù„ØºØ§Ø© <span class="count" id="cancelledCount">0</span>
             </button>
             <button class="tab-btn" onclick="showTab('products', this)">
-                <i class="fas fa-pepper-hot"></i> المنتجات
+                <i class="fas fa-leaf"></i> Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª
             </button>
         </div>
 
         <div id="ordersTab" class="tab-content active">
             <div class="orders-section">
                 <div class="orders-header">
-                    <h2><i class="fas fa-clipboard-list"></i> <span id="currentTabTitle">جميع الطلبات</span></h2>
+                    <h2><i class="fas fa-clipboard-list"></i> <span id="currentTabTitle">Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</span></h2>
                     <button class="refresh-btn" onclick="loadOrders()">
-                        <i class="fas fa-sync-alt"></i> تحديث
+                        <i class="fas fa-sync-alt"></i> ØªØ­Ø¯ÙŠØ«
                     </button>
                 </div>
                 <div class="orders-list" id="ordersList">
                     <div class="empty-state">
                         <i class="fas fa-spinner fa-spin"></i>
-                        <p>جاري التحميل...</p>
+                        <p>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</p>
                     </div>
                 </div>
             </div>
@@ -658,43 +658,43 @@
         <div id="productsTab" class="tab-content">
             <div class="product-section">
                 <div class="product-header">
-                    <h2><i class="fas fa-pepper-hot"></i> إدارة المنتجات</h2>
+                    <h2><i class="fas fa-leaf"></i> Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</h2>
                 </div>
                 <div class="add-product-form">
-                    <h3 style="margin-bottom: 15px; font-size: 15px;"><i class="fas fa-plus-circle"></i> إضافة منتج</h3>
+                    <h3 style="margin-bottom: 15px; font-size: 15px;"><i class="fas fa-plus-circle"></i> Ø¥Ø¶Ø§ÙØ© Ù…Ù†ØªØ¬</h3>
                     <form id="addProductForm" onsubmit="addProduct(event)">
                         <div class="form-row">
                             <div class="form-group">
-                                <label>اسم المنتج *</label>
-                                <input type="text" id="productName" required placeholder="باك التوابل">
+                                <label>Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ *</label>
+                                <input type="text" id="productName" required placeholder="Ø¨Ø§Ùƒ Ø§Ù„ØªÙˆØ§Ø¨Ù„">
                             </div>
                             <div class="form-group">
-                                <label>السعر (دج) *</label>
+                                <label>Ø§Ù„Ø³Ø¹Ø± (Ø¯Ø¬) *</label>
                                 <input type="number" id="productPrice" required placeholder="1900">
                             </div>
                             <div class="form-group">
-                                <label>السعر القديم</label>
+                                <label>Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ù‚Ø¯ÙŠÙ…</label>
                                 <input type="number" id="productOldPrice" placeholder="2500">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group" style="grid-column: 1 / -1;">
-                                <label>الوصف *</label>
-                                <textarea id="productDesc" rows="2" required placeholder="وصف المنتج..."></textarea>
+                                <label>Ø§Ù„ÙˆØµÙ *</label>
+                                <textarea id="productDesc" rows="2" required placeholder="ÙˆØµÙ Ø§Ù„Ù…Ù†ØªØ¬..."></textarea>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>الشارة</label>
-                                <input type="text" id="productBadge" placeholder="جديد، عرض خاص">
+                                <label>Ø§Ù„Ø´Ø§Ø±Ø©</label>
+                                <input type="text" id="productBadge" placeholder="Ø¬Ø¯ÙŠØ¯ØŒ Ø¹Ø±Ø¶ Ø®Ø§Øµ">
                             </div>
                             <div class="form-group">
-                                <label>صورة المنتج</label>
+                                <label>ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬</label>
                                 <div class="image-upload-box">
                                     <input type="file" id="productImage" accept="image/*" onchange="previewImage(this)">
                                     <div class="upload-placeholder" id="uploadPlaceholder">
                                         <i class="fas fa-cloud-upload-alt"></i>
-                                        <span>اختر صورة</span>
+                                        <span>Ø§Ø®ØªØ± ØµÙˆØ±Ø©</span>
                                     </div>
                                     <img id="imagePreview" class="image-preview" style="display: none;">
                                 </div>
@@ -703,7 +703,7 @@
                         <div class="form-row">
                             <div class="form-group" style="justify-content: flex-end;">
                                 <button type="submit" class="submit-btn">
-                                    <i class="fas fa-plus"></i> إضافة
+                                    <i class="fas fa-plus"></i> Ø¥Ø¶Ø§ÙØ©
                                 </button>
                             </div>
                         </div>
@@ -718,47 +718,47 @@
     <div class="edit-modal-overlay" id="editModalOverlay" onclick="closeEditModal(event)">
         <div class="edit-modal" onclick="event.stopPropagation()">
             <div class="edit-modal-header">
-                <h3><i class="fas fa-edit"></i> تعديل المنتج</h3>
+                <h3><i class="fas fa-edit"></i> ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬</h3>
                 <button class="close-edit-modal" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
             </div>
             <div class="edit-modal-body">
                 <form id="editProductForm" onsubmit="saveProductEdit(event)">
                     <input type="hidden" id="editProductId">
                     <div class="form-group" style="margin-bottom: 12px;">
-                        <label>اسم المنتج *</label>
+                        <label>Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ *</label>
                         <input type="text" id="editProductName" required>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>السعر (دج) *</label>
+                            <label>Ø§Ù„Ø³Ø¹Ø± (Ø¯Ø¬) *</label>
                             <input type="number" id="editProductPrice" required>
                         </div>
                         <div class="form-group">
-                            <label>السعر القديم</label>
+                            <label>Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ù‚Ø¯ÙŠÙ…</label>
                             <input type="number" id="editProductOldPrice">
                         </div>
                     </div>
                     <div class="form-group" style="margin-bottom: 12px;">
-                        <label>الوصف *</label>
+                        <label>Ø§Ù„ÙˆØµÙ *</label>
                         <textarea id="editProductDesc" rows="2" required></textarea>
                     </div>
                     <div class="form-group" style="margin-bottom: 12px;">
-                        <label>الشارة</label>
+                        <label>Ø§Ù„Ø´Ø§Ø±Ø©</label>
                         <input type="text" id="editProductBadge">
                     </div>
                     <div class="form-group" style="margin-bottom: 12px;">
-                        <label>صورة جديدة (اختياري)</label>
+                        <label>ØµÙˆØ±Ø© Ø¬Ø¯ÙŠØ¯Ø© (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</label>
                         <div class="image-upload-box">
                             <input type="file" id="editProductImage" accept="image/*" onchange="previewEditImage(this)">
                             <div class="upload-placeholder" id="editUploadPlaceholder">
                                 <i class="fas fa-cloud-upload-alt"></i>
-                                <span>اختر صورة جديدة</span>
+                                <span>Ø§Ø®ØªØ± ØµÙˆØ±Ø© Ø¬Ø¯ÙŠØ¯Ø©</span>
                             </div>
                             <img id="editImagePreview" class="image-preview" style="display: none;">
                         </div>
                     </div>
                     <button type="submit" class="submit-btn" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-save"></i> حفظ التعديلات
+                        <i class="fas fa-save"></i> Ø­ÙØ¸ Ø§Ù„ØªØ¹Ø¯ÙŠÙ„Ø§Øª
                     </button>
                 </form>
             </div>
@@ -797,9 +797,9 @@
                 document.getElementById('ordersTab').classList.add('active');
                 currentFilter = tab;
                 const titles = {
-                    'all': 'جميع الطلبات', 'new': 'الطلبات الجديدة',
-                    'confirmed': 'الطلبات المؤكدة', 'shipped': 'طلبات قيد الشحن',
-                    'completed': 'الطلبات المكتملة', 'cancelled': 'الطلبات الملغاة'
+                    'all': 'Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§Øª', 'new': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©',
+                    'confirmed': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø¤ÙƒØ¯Ø©', 'shipped': 'Ø·Ù„Ø¨Ø§Øª Ù‚ÙŠØ¯ Ø§Ù„Ø´Ø­Ù†',
+                    'completed': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…ÙƒØªÙ…Ù„Ø©', 'cancelled': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ù„ØºØ§Ø©'
                 };
                 document.getElementById('currentTabTitle').textContent = titles[tab];
                 renderOrders();
@@ -847,19 +847,19 @@
             let filtered = currentFilter === 'all' ? orders : orders.filter(o => o.status === currentFilter);
 
             if (filtered.length === 0) {
-                list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>لا توجد طلبات</p></div>';
+                list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª</p></div>';
                 return;
             }
 
             list.innerHTML = filtered.map(order => {
-                const statusLabels = { new: 'جديد', confirmed: 'مؤكد', cancelled: 'ملغي', shipped: 'قيد الشحن', completed: 'مكتمل' };
-                const items = order.items.map(i => `<div class="info-row"><span class="info-label">${i.nameAr || i.name}</span><span class="info-value">${i.quantity} × ${formatPrice(i.price)}</span></div>`).join('');
+                const statusLabels = { new: 'Ø¬Ø¯ÙŠØ¯', confirmed: 'Ù…Ø¤ÙƒØ¯', cancelled: 'Ù…Ù„ØºÙŠ', shipped: 'Ù‚ÙŠØ¯ Ø§Ù„Ø´Ø­Ù†', completed: 'Ù…ÙƒØªÙ…Ù„' };
+                const items = order.items.map(i => `<div class="info-row"><span class="info-label">${i.nameAr || i.name}</span><span class="info-value">${i.quantity} Ã— ${formatPrice(i.price)}</span></div>`).join('');
                 
                 let actions = '';
-                if (order.status === 'new') actions = `<button class="action-btn confirm" onclick="updateStatus(${order.id}, 'confirmed')"><i class="fas fa-check"></i> تأكيد</button><button class="action-btn cancel" onclick="updateStatus(${order.id}, 'cancelled')"><i class="fas fa-times"></i> إلغاء</button>`;
-                else if (order.status === 'confirmed') actions = `<button class="action-btn ship" onclick="updateStatus(${order.id}, 'shipped')"><i class="fas fa-truck"></i> تم الشحن</button><button class="action-btn cancel" onclick="updateStatus(${order.id}, 'cancelled')"><i class="fas fa-times"></i> إلغاء</button>`;
-                else if (order.status === 'shipped') actions = `<button class="action-btn complete" onclick="updateStatus(${order.id}, 'completed')"><i class="fas fa-check-double"></i> تم التسليم</button>`;
-                actions += `<button class="action-btn delete" onclick="deleteOrder(${order.id})"><i class="fas fa-trash"></i> حذف</button>`;
+                if (order.status === 'new') actions = `<button class="action-btn confirm" onclick="updateStatus(${order.id}, 'confirmed')"><i class="fas fa-check"></i> ØªØ£ÙƒÙŠØ¯</button><button class="action-btn cancel" onclick="updateStatus(${order.id}, 'cancelled')"><i class="fas fa-times"></i> Ø¥Ù„ØºØ§Ø¡</button>`;
+                else if (order.status === 'confirmed') actions = `<button class="action-btn ship" onclick="updateStatus(${order.id}, 'shipped')"><i class="fas fa-truck"></i> ØªÙ… Ø§Ù„Ø´Ø­Ù†</button><button class="action-btn cancel" onclick="updateStatus(${order.id}, 'cancelled')"><i class="fas fa-times"></i> Ø¥Ù„ØºØ§Ø¡</button>`;
+                else if (order.status === 'shipped') actions = `<button class="action-btn complete" onclick="updateStatus(${order.id}, 'completed')"><i class="fas fa-check-double"></i> ØªÙ… Ø§Ù„ØªØ³Ù„ÙŠÙ…</button>`;
+                actions += `<button class="action-btn delete" onclick="deleteOrder(${order.id})"><i class="fas fa-trash"></i> Ø­Ø°Ù</button>`;
 
                 return `
                 <div class="order-card ${order.status}">
@@ -875,17 +875,17 @@
                     <div class="order-body" id="order-${order.id}">
                         <div class="order-grid">
                             <div class="order-info-section">
-                                <h4><i class="fas fa-user"></i> العميل</h4>
-                                <div class="info-row"><span class="info-label">الاسم</span><span class="info-value">${order.customer.firstName} ${order.customer.lastName}</span></div>
-                                <div class="info-row"><span class="info-label">الهاتف</span><span class="info-value"><a href="tel:${order.customer.phone}">${order.customer.phone}</a></span></div>
-                                <div class="info-row"><span class="info-label">الولاية</span><span class="info-value">${order.customer.wilaya || '-'}</span></div>
-                                <div class="info-row"><span class="info-label">البلدية</span><span class="info-value">${order.customer.commune || '-'}</span></div>
-                                <div class="info-row"><span class="info-label">العنوان</span><span class="info-value">${order.customer.address || '-'}</span></div>
+                                <h4><i class="fas fa-user"></i> Ø§Ù„Ø¹Ù…ÙŠÙ„</h4>
+                                <div class="info-row"><span class="info-label">Ø§Ù„Ø§Ø³Ù…</span><span class="info-value">${order.customer.firstName} ${order.customer.lastName}</span></div>
+                                <div class="info-row"><span class="info-label">Ø§Ù„Ù‡Ø§ØªÙ</span><span class="info-value"><a href="tel:${order.customer.phone}">${order.customer.phone}</a></span></div>
+                                <div class="info-row"><span class="info-label">Ø§Ù„ÙˆÙ„Ø§ÙŠØ©</span><span class="info-value">${order.customer.wilaya || '-'}</span></div>
+                                <div class="info-row"><span class="info-label">Ø§Ù„Ø¨Ù„Ø¯ÙŠØ©</span><span class="info-value">${order.customer.commune || '-'}</span></div>
+                                <div class="info-row"><span class="info-label">Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</span><span class="info-value">${order.customer.address || '-'}</span></div>
                             </div>
                             <div class="order-info-section">
-                                <h4><i class="fas fa-box"></i> المنتجات</h4>
+                                <h4><i class="fas fa-box"></i> Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</h4>
                                 ${items}
-                                <div class="info-row" style="font-weight: bold; margin-top: 8px;"><span>المجموع</span><span style="color: var(--accent);">${formatPrice(order.totalPrice)}</span></div>
+                                <div class="info-row" style="font-weight: bold; margin-top: 8px;"><span>Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹</span><span style="color: var(--accent);">${formatPrice(order.totalPrice)}</span></div>
                             </div>
                         </div>
                         <div class="order-actions">${actions}</div>
@@ -904,7 +904,7 @@
         }
 
         async function deleteOrder(id) {
-            if (!confirm('حذف هذا الطلب؟')) return;
+            if (!confirm('Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ø·Ù„Ø¨ØŸ')) return;
             try { await fetch(`/api/orders/${id}`, { method: 'DELETE' }); loadOrders(); } catch (e) { console.error(e); }
         }
 
@@ -919,14 +919,14 @@
         function renderProducts() {
             const list = document.getElementById('productsList');
             if (products.length === 0) {
-                list.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i><p>لا توجد منتجات</p></div>';
+                list.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i><p>Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª</p></div>';
                 return;
             }
             list.innerHTML = products.map(p => `
                 <div class="product-item">
                     ${p.image && p.image !== 'spices-default.svg' ? 
-                        `<img src="/product-images/${p.image}" class="product-item-image" onerror="this.outerHTML='<div class=product-item-image-placeholder><i class=fas fa-pepper-hot></i></div>'">` : 
-                        `<div class="product-item-image-placeholder"><i class="fas fa-pepper-hot"></i></div>`}
+                        `<img src="/product-images/${p.image}" class="product-item-image" onerror="this.outerHTML='<div class=product-item-image-placeholder><i class=fas fa-leaf></i></div>'">` : 
+                        `<div class="product-item-image-placeholder"><i class="fas fa-leaf"></i></div>`}
                     <div class="product-item-info">
                         <h4>${p.nameAr}</h4>
                         <p>${p.descriptionAr || ''}</p>
@@ -937,7 +937,7 @@
                         ${formatPrice(p.price)}
                     </div>
                     <div class="product-actions">
-                        <button class="edit-product-btn" onclick="openEditModal(${p.id})"><i class="fas fa-edit"></i> تعديل</button>
+                        <button class="edit-product-btn" onclick="openEditModal(${p.id})"><i class="fas fa-edit"></i> ØªØ¹Ø¯ÙŠÙ„</button>
                         <button class="delete-product-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
@@ -986,13 +986,13 @@
                     document.getElementById('imagePreview').style.display = 'none';
                     document.getElementById('uploadPlaceholder').style.display = 'flex';
                     loadProducts(); 
-                    alert('تم إضافة المنتج!'); 
+                    alert('ØªÙ… Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ù†ØªØ¬!'); 
                 }
-            } catch (e) { alert('خطأ!'); }
+            } catch (e) { alert('Ø®Ø·Ø£!'); }
         }
 
         async function deleteProduct(id) {
-            if (!confirm('حذف هذا المنتج؟')) return;
+            if (!confirm('Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬ØŸ')) return;
             try { await fetch(`/api/products/${id}`, { method: 'DELETE' }); loadProducts(); } catch (e) { console.error(e); }
         }
 
@@ -1066,19 +1066,20 @@
                 if (res.ok) {
                     closeEditModal();
                     loadProducts();
-                    alert('تم تعديل المنتج بنجاح!');
+                    alert('ØªÙ… ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬ Ø¨Ù†Ø¬Ø§Ø­!');
                 } else {
-                    alert('خطأ في تعديل المنتج');
+                    alert('Ø®Ø·Ø£ ÙÙŠ ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬');
                 }
             } catch (e) {
-                alert('خطأ!');
+                alert('Ø®Ø·Ø£!');
                 console.error(e);
             }
         }
 
-        function formatPrice(p) { return p.toLocaleString('ar-DZ') + ' د.ج'; }
+        function formatPrice(p) { return p.toLocaleString('ar-DZ') + ' Ø¯.Ø¬'; }
 
         loadOrders();
     </script>
 </body>
 </html>
+
