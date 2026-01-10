@@ -365,7 +365,19 @@ let products = [
 
 // API: Get all products
 app.get('/api/products', (req, res) => {
-    res.json(products);
+    // Map products to return Arabic names as main name
+    const mappedProducts = products.map(p => ({
+        id: p.id,
+        name: p.nameAr || p.name,
+        price: p.price,
+        oldPrice: p.oldPrice,
+        description: p.descriptionAr || p.description,
+        image: p.image && (p.image.startsWith('http') || p.image.startsWith('/') || p.image.includes('.png') || p.image.includes('.jpg')) 
+            ? (p.image.includes('/') ? p.image : `/product-images/${p.image}`)
+            : `https://via.placeholder.com/300x300/2e8b57/ffffff?text=${encodeURIComponent(p.nameAr || p.name)}`,
+        badge: p.badge
+    }));
+    res.json(mappedProducts);
 });
 
 // API: Add new product (Admin)

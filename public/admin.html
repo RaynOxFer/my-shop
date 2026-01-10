@@ -1019,26 +1019,45 @@
         async function saveProduct(event) {
             event.preventDefault();
 
-            const formData = new FormData();
-            formData.append('name', document.getElementById('productName').value);
-            formData.append('price', document.getElementById('productPrice').value);
-            formData.append('description', document.getElementById('productDescription').value);
+            const name = document.getElementById('productName').value;
+            const price = document.getElementById('productPrice').value;
+            const description = document.getElementById('productDescription').value;
             
+            // Convert image to base64 if selected
+            let imageBase64 = null;
             const imageFile = document.getElementById('productImage').files[0];
             if (imageFile) {
-                formData.append('image', imageFile);
+                imageBase64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(imageFile);
+                });
             }
 
+            const productData = {
+                nameAr: name,
+                price: price,
+                descriptionAr: description,
+                image: imageBase64
+            };
+
             try {
-                const url = editingProductId ? `/api/products/${editingProductId}` : '/api/products';
-                const method = editingProductId ? 'PUT' : 'POST';
+                let url, method;
+                if (editingProductId) {
+                    url = `/api/products/${editingProductId}`;
+                    method = 'PUT';
+                } else {
+                    url = '/api/products/add';
+                    method = 'POST';
+                }
                 
                 const response = await fetch(url, {
                     method: method,
                     headers: {
+                        'Content-Type': 'application/json',
                         'Authorization': 'Basic ' + btoa('admin:shop2024')
                     },
-                    body: formData
+                    body: JSON.stringify(productData)
                 });
 
                 if (response.ok) {
