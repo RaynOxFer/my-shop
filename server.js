@@ -314,17 +314,8 @@ app.post('/api/products/add', async (req, res) => {
         const lastProduct = await Product.findOne().sort({ productId: -1 });
         const newId = lastProduct ? lastProduct.productId + 1 : 1;
         
-        let imageName = '';
-        
-        // Save product image if provided
-        if (image && image.startsWith('data:image')) {
-            const imageFileName = `product-${newId}-${Date.now()}.png`;
-            const base64Data = image.replace(/^data:image\/\w+;base64,/, '');
-            fs.writeFileSync(`product-images/${imageFileName}`, base64Data, 'base64');
-            imageName = imageFileName;
-        } else if (image) {
-            imageName = image;
-        }
+        // Store image directly (base64 or URL)
+        let imageData = image || '';
         
         const newProduct = new Product({
             productId: newId,
@@ -334,7 +325,7 @@ app.post('/api/products/add', async (req, res) => {
             oldPrice: oldPrice ? parseInt(oldPrice) : null,
             description: descriptionAr,
             descriptionAr,
-            image: imageName,
+            image: imageData,
             badge: badge || ""
         });
         
@@ -371,15 +362,8 @@ app.put('/api/products/:id', async (req, res) => {
             return res.status(404).json({ error: 'Product not found' });
         }
         
-        let imageName = product.image;
-        
-        // Save new product image if provided
-        if (image && image.startsWith('data:image')) {
-            const imageFileName = `product-${productId}-${Date.now()}.png`;
-            const base64Data = image.replace(/^data:image\/\w+;base64,/, '');
-            fs.writeFileSync(`product-images/${imageFileName}`, base64Data, 'base64');
-            imageName = imageFileName;
-        }
+        // Store image directly (base64 or URL) - keep old image if not changed
+        let imageData = image || product.image;
         
         product.name = nameAr;
         product.nameAr = nameAr;
@@ -387,7 +371,7 @@ app.put('/api/products/:id', async (req, res) => {
         product.oldPrice = oldPrice ? parseInt(oldPrice) : null;
         product.description = descriptionAr;
         product.descriptionAr = descriptionAr;
-        product.image = imageName;
+        product.image = imageData;
         product.badge = badge || "";
         
         await product.save();
