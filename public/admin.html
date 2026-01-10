@@ -1079,9 +1079,9 @@
                         <i class="fas fa-clock"></i>
                         في الانتظار
                     </button>
-                    <button class="tab-btn" onclick="filterOrders('confirmed')">
+                    <button class="tab-btn" onclick="filterOrders('accepted')">
                         <i class="fas fa-check"></i>
-                        مؤكدة
+                        مقبولة
                     </button>
                     <button class="tab-btn" onclick="filterOrders('shipped')">
                         <i class="fas fa-truck"></i>
@@ -1091,9 +1091,9 @@
                         <i class="fas fa-box"></i>
                         تم التسليم
                     </button>
-                    <button class="tab-btn" onclick="filterOrders('cancelled')">
+                    <button class="tab-btn" onclick="filterOrders('rejected')">
                         <i class="fas fa-times"></i>
-                        ملغاة
+                        مرفوضة
                     </button>
                 </div>
 
@@ -1241,11 +1241,7 @@
         // Logout function
         function logout() {
             sessionStorage.removeItem('adminLoggedIn');
-            document.getElementById('phoneBadge').style.display = 'none';
-            showLoginPage();
-            // Clear form
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
+            window.location.reload();
         }
 
         // Theme toggle
@@ -1306,7 +1302,7 @@
             const stats = {
                 total: orders.length,
                 pending: orders.filter(o => o.status === 'pending' || o.status === 'new').length,
-                confirmed: orders.filter(o => o.status === 'confirmed').length,
+                accepted: orders.filter(o => o.status === 'accepted').length,
                 shipped: orders.filter(o => o.status === 'shipped').length,
                 delivered: orders.filter(o => o.status === 'delivered').length,
                 revenue: orders.filter(o => o.status === 'delivered').reduce((sum, o) => sum + (o.totalPrice || o.total || 0), 0)
@@ -1314,7 +1310,7 @@
 
             document.getElementById('totalOrders').textContent = stats.total;
             document.getElementById('pendingOrders').textContent = stats.pending;
-            document.getElementById('confirmedOrders').textContent = stats.confirmed;
+            document.getElementById('confirmedOrders').textContent = stats.accepted;
             document.getElementById('shippedOrders').textContent = stats.shipped;
             document.getElementById('deliveredOrders').textContent = stats.delivered;
             document.getElementById('totalRevenue').textContent = stats.revenue.toLocaleString();
@@ -1329,6 +1325,10 @@
             if (currentFilter !== 'all') {
                 if (currentFilter === 'pending') {
                     filtered = orders.filter(o => o.status === 'pending' || o.status === 'new');
+                } else if (currentFilter === 'accepted') {
+                    filtered = orders.filter(o => o.status === 'accepted');
+                } else if (currentFilter === 'rejected') {
+                    filtered = orders.filter(o => o.status === 'rejected' || o.status === 'cancelled');
                 } else {
                     filtered = orders.filter(o => o.status === currentFilter);
                 }
