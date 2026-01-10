@@ -1,4 +1,4 @@
-﻿// Shopping Cart State
+// Shopping Cart State
 let cart = [];
 let products = [];
 let currentProduct = null;
@@ -46,113 +46,141 @@ async function loadProducts() {
         renderProducts();
     } catch (error) {
         console.error('Error loading products:', error);
-        showToast('Ø®Ø·Ø£ ÙÙŠ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª', 'error');
+        showToast('خطأ في تحميل المنتجات', 'error');
     }
 }
 
-// Format price in DZD
-function formatPrice(price) {
-    return price.toLocaleString('ar-DZ') + ' Ø¯.Ø¬';
-}
-
-// Get the correct image path for a product
-function getProductImagePath(product) {
-    if (!product.image) return '';
-    // If image is uploaded (starts with 'product-'), use product-images folder
-    if (product.image.startsWith('product-')) {
-        return `/product-images/${product.image}`;
-    }
-    // Otherwise use images folder for default images
-    return `/images/${product.image}`;
-}
-
-// Render products grid
-function renderProducts() {
+// Render products to the grid
+function renderProducts(filteredProducts = null) {
+    const productsToRender = filteredProducts || products;
     const grid = document.getElementById('productsGrid');
-    grid.innerHTML = products.map(product => `
-        <div class="product-card" data-name="${product.name}" data-name-ar="${product.nameAr || ''}">
-            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+    
+    if (!grid) return;
+    
+    grid.innerHTML = productsToRender.map(product => `
+        <div class="product-card" data-id="${product.id}">
+            <div class="product-badge">جديد</div>
             <div class="product-image" onclick="openProductModal(${product.id})">
-                <img src="${getProductImagePath(product)}" alt="${product.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-leaf product-placeholder\\'></i>'">
+                <img src="${product.image || 'https://via.placeholder.com/300x300?text=منتج+طبيعي'}" alt="${product.name}" loading="lazy">
                 <div class="product-overlay">
-                    <button onclick="event.stopPropagation(); openProductModal(${product.id})">
-                        <i class="fas fa-eye"></i> Ø¹Ø±Ø¶ Ø³Ø±ÙŠØ¹
+                    <button class="quick-view-btn">
+                        <i class="fas fa-eye"></i> معاينة سريعة
                     </button>
                 </div>
             </div>
             <div class="product-info">
-                <h3 class="product-name">${product.nameAr || product.name}</h3>
-                <p class="product-description">${product.descriptionAr || product.description}</p>
-                <p class="product-price">
-                    ${product.oldPrice ? `<span class="old-price">${formatPrice(product.oldPrice)}</span>` : ''}
-                    ${formatPrice(product.price)}
-                </p>
-                <button class="btn-add" onclick="addToCart(${product.id})">
-                    <i class="fas fa-cart-plus"></i> Ø£Ø¶Ù Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©
-                </button>
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-description">${product.description || 'منتج طبيعي 100%'}</p>
+                <div class="product-footer">
+                    <span class="product-price">${product.price.toLocaleString()} د.ج</span>
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                        <i class="fas fa-cart-plus"></i>
+                    </button>
+                </div>
             </div>
         </div>
     `).join('');
 }
 
-// Search products
+// Search Products
 function searchProducts() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const cards = document.querySelectorAll('.product-card');
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
     
-    cards.forEach(card => {
-        const name = card.dataset.name.toLowerCase();
-        const nameAr = card.dataset.nameAr.toLowerCase();
-        if (name.includes(searchTerm) || nameAr.includes(searchTerm)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
+    if (searchTerm === '') {
+        renderProducts();
+        return;
+    }
+    
+    const filtered = products.filter(product => 
+        product.name.toLowerCase().includes(searchTerm) ||
+        (product.description && product.description.toLowerCase().includes(searchTerm))
+    );
+    
+    renderProducts(filtered);
 }
 
-// Toggle mobile menu
-function toggleMobileMenu() {
-    document.getElementById('mobileMenu').classList.toggle('active');
-}
-
-// Add product to cart
-function addToCart(productId, quantity = 1) {
+// Add to Cart
+function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
-
+    
     const existingItem = cart.find(item => item.id === productId);
+    
     if (existingItem) {
-        existingItem.quantity += quantity;
+        existingItem.quantity += 1;
     } else {
         cart.push({
             id: product.id,
             name: product.name,
-            nameAr: product.nameAr || product.name,
             price: product.price,
             image: product.image,
-            quantity: quantity
+            quantity: 1
         });
     }
-
+    
     saveCartToStorage();
     updateCartUI();
-    showToast(`ØªÙ…Øª Ø¥Ø¶Ø§ÙØ© ${product.nameAr || product.name} Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©!`, 'success');
+    showToast('تمت الإضافة إلى السلة', 'success');
+    
+    // Animation effect
+    const cartIcon = document.querySelector('.cart-icon');
+    cartIcon.classList.add('bounce');
+    setTimeout(() => cartIcon.classList.remove('bounce'), 300);
 }
 
-// Remove item from cart
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    saveCartToStorage();
-    updateCartUI();
+// Update Cart UI
+function updateCartUI() {
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    // Update count
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+    
+    // Update cart items
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>السلة فارغة</p>
+            </div>
+        `;
+        checkoutBtn.disabled = true;
+    } else {
+        cartItems.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <img src="${item.image || 'https://via.placeholder.com/60x60?text=منتج'}" alt="${item.name}">
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <p>${item.price.toLocaleString()} د.ج</p>
+                </div>
+                <div class="cart-item-quantity">
+                    <button onclick="updateQuantity(${item.id}, -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="updateQuantity(${item.id}, 1)">+</button>
+                </div>
+                <button class="remove-item" onclick="removeFromCart(${item.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `).join('');
+        checkoutBtn.disabled = false;
+    }
+    
+    // Update total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    cartTotal.textContent = `${total.toLocaleString()} د.ج`;
 }
 
 // Update item quantity
 function updateQuantity(productId, change) {
     const item = cart.find(i => i.id === productId);
     if (!item) return;
-
+    
     item.quantity += change;
+    
     if (item.quantity <= 0) {
         removeFromCart(productId);
     } else {
@@ -161,153 +189,79 @@ function updateQuantity(productId, change) {
     }
 }
 
-// Calculate total price
-function calculateTotal() {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+// Remove from cart
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCartToStorage();
+    updateCartUI();
+    showToast('تم الحذف من السلة', 'success');
 }
 
-// Update cart UI
-function updateCartUI() {
-    const cartCount = document.getElementById('cartCount');
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-
-    // Update cart count
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
-
-    // Update cart items
-    if (cart.length === 0) {
-        cartItems.innerHTML = `
-            <div class="cart-empty">
-                <i class="fas fa-shopping-cart"></i>
-                <p>Ø³Ù„Ø© Ø§Ù„ØªØ³ÙˆÙ‚ ÙØ§Ø±ØºØ©</p>
-            </div>
-        `;
-        checkoutBtn.disabled = true;
-    } else {
-        cartItems.innerHTML = cart.map(item => {
-            const imgPath = item.image && item.image.startsWith('product-') ? `/product-images/${item.image}` : `/images/${item.image}`;
-            return `
-            <div class="cart-item">
-                <div class="cart-item-image">
-                    <img src="${imgPath}" alt="${item.nameAr}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-leaf\\'></i>'">
-                </div>
-                <div class="cart-item-details">
-                    <div class="cart-item-name">${item.nameAr}</div>
-                    <div class="cart-item-price">${formatPrice(item.price)}</div>
-                    <div class="cart-item-quantity">
-                        <button onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="updateQuantity(${item.id}, 1)">+</button>
-                    </div>
-                </div>
-                <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `}).join('');
-        checkoutBtn.disabled = false;
-    }
-
-    // Update total
-    cartTotal.textContent = formatPrice(calculateTotal());
-}
-
-// Toggle cart sidebar
+// Toggle Cart Sidebar
 function toggleCart() {
-    const cartSidebar = document.getElementById('cartSidebar');
-    const cartOverlay = document.getElementById('cartOverlay');
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
     
-    cartSidebar.classList.toggle('active');
-    cartOverlay.classList.toggle('active');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
 }
 
-// Open checkout modal
+// Open Checkout Modal
 function openCheckout() {
-    if (cart.length === 0) return;
-
-    const checkoutModal = document.getElementById('checkoutModal');
+    toggleCart();
+    
+    const modal = document.getElementById('checkoutModal');
     const checkoutItems = document.getElementById('checkoutItems');
     const checkoutTotal = document.getElementById('checkoutTotal');
-
-    // Populate checkout items
+    
+    // Populate order summary
     checkoutItems.innerHTML = cart.map(item => `
         <div class="checkout-item">
-            <span>${item.nameAr} Ã— ${item.quantity}</span>
-            <span>${formatPrice(item.price * item.quantity)}</span>
+            <span>${item.name} × ${item.quantity}</span>
+            <span>${(item.price * item.quantity).toLocaleString()} د.ج</span>
         </div>
     `).join('');
-
-    checkoutTotal.textContent = formatPrice(calculateTotal());
-
-    // Close cart and open checkout
-    toggleCart();
-    checkoutModal.classList.add('active');
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    checkoutTotal.textContent = `${total.toLocaleString()} د.ج`;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
-// Close checkout modal
+// Close Checkout
 function closeCheckout() {
     document.getElementById('checkoutModal').classList.remove('active');
+    document.body.style.overflow = '';
 }
 
-// Submit order
+// Submit Order
 async function submitOrder(event) {
     event.preventDefault();
-
+    
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="loading"></span> Ø¬Ø§Ø±ÙŠ Ø§Ù„Ù…Ø¹Ø§Ù„Ø¬Ø©...';
-
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+    
     const formData = {
         customer: {
             firstName: document.getElementById('firstName').value,
             lastName: document.getElementById('lastName').value,
-            email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
             wilaya: document.getElementById('wilaya').value,
             address: document.getElementById('address').value
         },
         items: cart.map(item => ({
             id: item.id,
             name: item.name,
-            nameAr: item.nameAr,
             price: item.price,
-            quantity: item.quantity,
-            image: item.image
+            quantity: item.quantity
         })),
-        totalPrice: calculateTotal()
+        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
     };
-
-    // Try to capture product image for the order
-    try {
-        const firstProduct = products.find(p => p.id === cart[0].id);
-        if (firstProduct) {
-            const imgPath = getProductImagePath(firstProduct);
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.src = imgPath;
-            
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = resolve;
-                setTimeout(resolve, 2000);
-            });
-
-            if (img.complete && img.naturalWidth > 0) {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.naturalWidth;
-                canvas.height = img.naturalHeight;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                formData.productImage = canvas.toDataURL('image/png');
-            }
-        }
-    } catch (e) {
-        console.log('Could not capture product image:', e);
-    }
-
+    
     try {
         const response = await fetch('/api/orders', {
             method: 'POST',
@@ -316,13 +270,14 @@ async function submitOrder(event) {
             },
             body: JSON.stringify(formData)
         });
-
+        
         const result = await response.json();
-
-        if (result.success) {
-            // Close checkout and show success
+        
+        if (response.ok) {
+            // Show success modal
             closeCheckout();
-            showSuccessModal(result.orderId);
+            document.getElementById('orderId').textContent = result.orderId;
+            document.getElementById('successModal').classList.add('active');
             
             // Clear cart
             cart = [];
@@ -332,53 +287,41 @@ async function submitOrder(event) {
             // Reset form
             document.getElementById('checkoutForm').reset();
         } else {
-            showToast(result.error || 'ÙØ´Ù„ ÙÙŠ Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø·Ù„Ø¨', 'error');
+            showToast(result.message || 'خطأ في إرسال الطلب', 'error');
         }
     } catch (error) {
-        console.error('Error submitting order:', error);
-        showToast('Ø®Ø·Ø£ ÙÙŠ Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø·Ù„Ø¨. Ø­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.', 'error');
+        console.error('Error:', error);
+        showToast('خطأ في الاتصال بالخادم', 'error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> تأكيد الطلب';
     }
-
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø·Ù„Ø¨';
 }
 
-// Show success modal
-function showSuccessModal(orderId) {
-    document.getElementById('orderId').textContent = orderId;
-    document.getElementById('successModal').classList.add('active');
-}
-
-// Close success modal
+// Close Success Modal
 function closeSuccessModal() {
     document.getElementById('successModal').classList.remove('active');
+    document.body.style.overflow = '';
 }
 
 // Product Modal Functions
 function openProductModal(productId) {
     currentProduct = products.find(p => p.id === productId);
     if (!currentProduct) return;
-
-    document.getElementById('modalProductName').textContent = currentProduct.nameAr || currentProduct.name;
     
-    // Show old price with strikethrough if exists
-    const priceHTML = currentProduct.oldPrice 
-        ? `<span class="old-price">${formatPrice(currentProduct.oldPrice)}</span> ${formatPrice(currentProduct.price)}`
-        : formatPrice(currentProduct.price);
-    document.getElementById('modalProductPrice').innerHTML = priceHTML;
-    
-    document.getElementById('modalProductDescription').textContent = currentProduct.descriptionAr || currentProduct.description;
+    document.getElementById('modalProductImage').src = currentProduct.image || 'https://via.placeholder.com/400x400?text=منتج';
+    document.getElementById('modalProductName').textContent = currentProduct.name;
+    document.getElementById('modalProductPrice').textContent = `${currentProduct.price.toLocaleString()} د.ج`;
+    document.getElementById('modalProductDescription').textContent = currentProduct.description || 'منتج طبيعي 100% من راحة بيو';
     document.getElementById('modalQuantity').value = 1;
-
-    const imageContainer = document.getElementById('modalProductImage');
-    const imgPath = getProductImagePath(currentProduct);
-    imageContainer.innerHTML = `<img src="${imgPath}" alt="${currentProduct.nameAr || currentProduct.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-leaf\\' style=\\'font-size:60px;color:#ccc;\\'></i>'">`;
-
+    
     document.getElementById('productModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeProductModal() {
     document.getElementById('productModal').classList.remove('active');
+    document.body.style.overflow = '';
     currentProduct = null;
 }
 
@@ -396,87 +339,90 @@ function decreaseModalQuantity() {
 
 function addToCartFromModal() {
     if (!currentProduct) return;
-    const quantity = parseInt(document.getElementById('modalQuantity').value) || 1;
-    addToCart(currentProduct.id, quantity);
+    
+    const quantity = parseInt(document.getElementById('modalQuantity').value);
+    const existingItem = cart.find(item => item.id === currentProduct.id);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({
+            id: currentProduct.id,
+            name: currentProduct.name,
+            price: currentProduct.price,
+            image: currentProduct.image,
+            quantity: quantity
+        });
+    }
+    
+    saveCartToStorage();
+    updateCartUI();
     closeProductModal();
+    showToast('تمت الإضافة إلى السلة', 'success');
+}
+
+// Mobile Menu
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('open');
 }
 
 // Local Storage Functions
 function saveCartToStorage() {
-    localStorage.setItem('shopCart', JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function loadCartFromStorage() {
-    const savedCart = localStorage.getItem('shopCart');
+    const savedCart = localStorage.getItem('cart');
     if (savedCart) {
-        try {
-            cart = JSON.parse(savedCart);
-        } catch (e) {
-            cart = [];
-        }
+        cart = JSON.parse(savedCart);
     }
 }
 
 // Toast Notification
 function showToast(message, type = 'success') {
-    // Remove existing toasts
-    const existingToast = document.querySelector('.toast');
-    if (existingToast) {
-        existingToast.remove();
+    // Create toast if not exists
+    let toast = document.getElementById('toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        toast.innerHTML = '<i class="fas fa-check-circle"></i><span></span>';
+        document.body.appendChild(toast);
     }
-
-    const toast = document.createElement('div');
+    
+    const icon = toast.querySelector('i');
+    const text = toast.querySelector('span');
+    
+    text.textContent = message;
     toast.className = `toast ${type}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    // Show toast
-    setTimeout(() => toast.classList.add('show'), 100);
-
-    // Hide toast after 3 seconds
+    icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    
+    toast.classList.add('show');
+    
     setTimeout(() => {
         toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 
-// Close modals on escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeCheckout();
-        closeSuccessModal();
-        closeProductModal();
-        const cartSidebar = document.getElementById('cartSidebar');
-        if (cartSidebar.classList.contains('active')) {
-            toggleCart();
-        }
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenu.classList.contains('active')) {
-            toggleMobileMenu();
-        }
+// Close modals on overlay click
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+        e.target.classList.remove('active');
+        document.body.style.overflow = '';
     }
 });
 
-// Close modals when clicking outside
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            overlay.classList.remove('active');
+// Close on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+            modal.classList.remove('active');
+        });
+        const cartSidebar = document.getElementById('cartSidebar');
+        if (cartSidebar && cartSidebar.classList.contains('open')) {
+            toggleCart();
         }
-    });
+        document.body.style.overflow = '';
+    }
 });
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-

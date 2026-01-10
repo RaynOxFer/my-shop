@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… - Ø±Ø§Ø­Ø© Ø¨ÙŠÙˆ</title>
+    <title>لوحة التحكم - راحة بيو</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -201,313 +201,258 @@
             border-radius: 20px;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
+            font-size: 13px;
             display: flex;
             align-items: center;
             gap: 6px;
             transition: all 0.3s;
-            font-weight: 600;
-            font-size: 13px;
         }
 
-        .refresh-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
-        }
+        .refresh-btn:hover { transform: scale(1.05); }
 
         .orders-list {
-            padding: 12px;
-            max-height: 550px;
+            max-height: 70vh;
             overflow-y: auto;
         }
 
         .order-card {
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            background: var(--bg-card);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s;
         }
 
-        .order-card.new { border-right: 4px solid #9b59b6; }
-        .order-card.confirmed { border-right: 4px solid #27ae60; }
-        .order-card.cancelled { border-right: 4px solid #e74c3c; }
-        .order-card.shipped { border-right: 4px solid #f39c12; }
-        .order-card.completed { border-right: 4px solid #3498db; }
+        .order-card:hover { background: var(--bg-input); }
 
         .order-header {
-            padding: 12px 15px;
-            background: var(--bg-input);
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             flex-wrap: wrap;
-            gap: 8px;
-            cursor: pointer;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
-        .order-info { flex: 1; min-width: 150px; }
-        .order-id { font-weight: 700; color: var(--accent); font-size: 13px; }
-        .order-date { color: var(--text-secondary); font-size: 11px; }
-        .order-customer { font-weight: 600; font-size: 13px; }
+        .order-id { font-weight: 700; color: var(--accent); font-size: 14px; }
+        .order-date { color: var(--text-secondary); font-size: 12px; }
 
         .order-status {
             padding: 4px 12px;
-            border-radius: 12px;
+            border-radius: 15px;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
-        .status-new { background: #9b59b6; color: white; }
-        .status-confirmed { background: #27ae60; color: white; }
-        .status-cancelled { background: #e74c3c; color: white; }
-        .status-shipped { background: #f39c12; color: white; }
-        .status-completed { background: #3498db; color: white; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-confirmed { background: #d1e7dd; color: #0f5132; }
+        .status-shipped { background: #cff4fc; color: #055160; }
+        .status-delivered { background: #d1e7dd; color: #0f5132; }
+        .status-cancelled { background: #f8d7da; color: #842029; }
 
-        .order-price { font-size: 16px; font-weight: 700; color: var(--accent); }
-
-        .order-body {
-            padding: 15px;
-            display: none;
-            background: var(--bg-card);
-        }
-
-        .order-body.active { display: block; }
-
-        .order-grid {
+        .customer-info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 13px;
         }
 
-        .order-info-section {
-            background: var(--bg-input);
-            padding: 12px;
-            border-radius: 10px;
-        }
-
-        .order-info-section h4 {
-            margin-bottom: 10px;
+        .customer-info div {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 13px;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 6px;
         }
 
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid var(--border-color);
+        .customer-info i { color: var(--accent); width: 16px; }
+
+        .order-products {
+            background: var(--bg-input);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .order-products h4 {
+            margin-bottom: 6px;
+            color: var(--accent);
             font-size: 12px;
         }
 
-        .info-row:last-child { border-bottom: none; }
-        .info-label { color: var(--text-secondary); }
-        .info-value { font-weight: 600; }
-        .info-value a { color: var(--accent); text-decoration: none; }
+        .order-total {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 16px;
+            margin: 10px 0;
+        }
 
         .order-actions {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border-color);
         }
 
         .action-btn {
-            padding: 8px 16px;
+            padding: 6px 14px;
             border: none;
             border-radius: 15px;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
-            font-weight: 600;
             font-size: 12px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             transition: all 0.3s;
         }
 
-        .action-btn.confirm { background: #27ae60; color: white; }
-        .action-btn.cancel { background: #e74c3c; color: white; }
-        .action-btn.ship { background: #f39c12; color: white; }
-        .action-btn.complete { background: #3498db; color: white; }
-        .action-btn.delete { background: #95a5a6; color: white; }
-        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+        .btn-confirm { background: #198754; color: white; }
+        .btn-ship { background: #0dcaf0; color: #000; }
+        .btn-deliver { background: #198754; color: white; }
+        .btn-cancel { background: #dc3545; color: white; }
+        .btn-delete { background: #6c757d; color: white; }
 
-        /* Products */
-        .product-section {
-            background: var(--bg-card);
-            border-radius: 15px;
-            box-shadow: 0 3px 15px var(--shadow-color);
-            overflow: hidden;
+        .action-btn:hover { transform: scale(1.05); opacity: 0.9; }
+
+        .empty-orders {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-secondary);
         }
 
-        .product-header {
-            padding: 15px 20px;
-            background: var(--bg-input);
-            border-bottom: 1px solid var(--border-color);
-        }
+        .empty-orders i { font-size: 50px; margin-bottom: 15px; opacity: 0.5; }
 
-        .product-header h2 {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-        }
-
-        .add-product-form {
-            padding: 20px;
-            background: var(--bg-input);
-            margin: 12px;
-            border-radius: 12px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .form-group { display: flex; flex-direction: column; }
-        .form-group label { margin-bottom: 4px; font-weight: 600; font-size: 12px; color: var(--text-secondary); }
-
-        .form-group input, .form-group textarea {
-            padding: 10px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 13px;
-            background: var(--bg-card);
-            color: var(--text-primary);
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
-
-        .submit-btn {
-            padding: 10px 25px;
+        /* Products Section */
+        .add-product-btn {
+            padding: 12px 24px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
             color: white;
             border: none;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 13px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .add-product-btn:hover { transform: scale(1.05); }
+
+        .products-grid-admin {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card-admin {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px var(--shadow-color);
             transition: all 0.3s;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+        .product-card-admin:hover { transform: translateY(-5px); }
+
+        .product-card-admin img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
         }
 
-        .products-list { padding: 12px; }
-
-        .product-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: var(--bg-input);
-            border-radius: 10px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 10px;
+        .product-card-admin .content {
+            padding: 15px;
         }
 
-        .product-item-info { flex: 1; min-width: 200px; }
-        .product-item-info h4 { font-size: 14px; margin-bottom: 3px; }
-        .product-item-info p { color: var(--text-secondary); font-size: 12px; }
-
-        .product-item-price {
+        .product-card-admin h3 {
             font-size: 16px;
-            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .product-card-admin .price {
             color: var(--accent);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 12px;
         }
 
-        .product-item-price .old-price {
-            text-decoration: line-through;
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin-right: 6px;
-        }
-
-        .delete-product-btn {
-            padding: 6px 12px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            font-size: 11px;
-        }
-
-        .delete-product-btn:hover { background: #c0392b; }
-
-        .edit-product-btn {
-            padding: 6px 12px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            font-size: 11px;
-            margin-left: 5px;
-        }
-
-        .edit-product-btn:hover { background: #2980b9; }
-
-        .product-actions {
+        .product-card-admin .actions {
             display: flex;
-            gap: 5px;
+            gap: 8px;
         }
 
-        .edit-modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            display: none;
-            justify-content: center;
+        .product-card-admin .edit-btn,
+        .product-card-admin .delete-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 13px;
+            display: flex;
             align-items: center;
-            z-index: 1000;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s;
         }
 
-        .edit-modal-overlay.active { display: flex; }
+        .product-card-admin .edit-btn {
+            background: var(--accent);
+            color: white;
+        }
 
-        .edit-modal {
+        .product-card-admin .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
             background: var(--bg-card);
             border-radius: 15px;
-            width: 90%;
+            width: 100%;
             max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
-        .edit-modal-header {
+        .modal-header {
             padding: 15px 20px;
-            background: var(--accent);
-            color: white;
-            border-radius: 15px 15px 0 0;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
         }
 
-        .edit-modal-header h3 { font-size: 16px; }
+        .modal-header h3 {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-        .close-edit-modal {
+        .close-modal {
             background: none;
             border: none;
             color: white;
@@ -515,571 +460,638 @@
             cursor: pointer;
         }
 
-        .edit-modal-body { padding: 20px; }
+        .modal-body { padding: 20px; }
 
-        .image-upload-box {
-            position: relative;
-            border: 2px dashed var(--border-color);
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
             border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: border-color 0.3s;
-            height: 100px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            transition: all 0.3s;
         }
 
-        .image-upload-box:hover { border-color: var(--accent); }
-
-        .image-upload-box input[type="file"] {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; cursor: pointer; z-index: 2;
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
         }
 
-        .upload-placeholder {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100%; color: var(--text-secondary); font-size: 12px; gap: 5px;
-        }
-
-        .upload-placeholder i { font-size: 24px; color: var(--accent); }
+        .form-group textarea { min-height: 80px; resize: vertical; }
 
         .image-preview {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            height: 150px;
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            overflow: hidden;
+            background: var(--bg-input);
         }
 
-        .product-item-image {
-            width: 60px; height: 60px; border-radius: 8px; object-fit: cover;
-            background: var(--bg-input); border: 1px solid var(--border-color);
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
-        .product-item-image-placeholder {
-            width: 60px; height: 60px; border-radius: 8px;
-            background: var(--bg-input); border: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-secondary); font-size: 20px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px;
+        .image-preview span {
             color: var(--text-secondary);
+            font-size: 13px;
         }
 
-        .empty-state i { font-size: 40px; margin-bottom: 10px; opacity: 0.5; }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
 
+        .submit-btn:hover { transform: scale(1.02); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 9999;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.success { background: #198754; }
+        .toast.error { background: #dc3545; }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .admin-header h1 { font-size: 14px; }
-            .tabs-nav { justify-content: center; }
-            .tab-btn { padding: 8px 12px; font-size: 11px; }
+            .admin-header a, .admin-header button { padding: 6px 12px; font-size: 11px; }
+            .container { padding-top: 100px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .customer-info { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <header class="admin-header">
         <div class="container">
-            <h1><i class="fas fa-cog"></i> ØªÙˆØ§Ø¨Ù„ Ù…ØºÙ†ÙŠØ© - Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ…</h1>
+            <h1><i class="fas fa-leaf"></i> لوحة تحكم راحة بيو</h1>
             <div class="header-buttons">
-                <button onclick="toggleTheme()"><i class="fas fa-moon"></i> Ø§Ù„ÙˆØ¶Ø¹</button>
-                <a href="/"><i class="fas fa-store"></i> Ø§Ù„Ù…ØªØ¬Ø±</a>
-                <a href="/logout"><i class="fas fa-sign-out-alt"></i> Ø®Ø±ÙˆØ¬</a>
+                <button onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                    <span>الوضع</span>
+                </button>
+                <a href="/">
+                    <i class="fas fa-store"></i>
+                    <span>المتجر</span>
+                </a>
+                <button onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>خروج</span>
+                </button>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="stats-grid">
-            <div class="stat-card">
-                <i class="fas fa-shopping-bag"></i>
-                <h3 id="totalOrders">0</h3>
-                <p>Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-hourglass-half"></i>
-                <h3 id="newOrders">0</h3>
-                <p>Ø¬Ø¯ÙŠØ¯Ø©</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-truck"></i>
-                <h3 id="shippedOrders">0</h3>
-                <p>Ù‚ÙŠØ¯ Ø§Ù„Ø´Ø­Ù†</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-check-circle"></i>
-                <h3 id="completedOrders">0</h3>
-                <p>Ù…ÙƒØªÙ…Ù„Ø©</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-coins"></i>
-                <h3 id="totalRevenue">0</h3>
-                <p>Ø§Ù„Ù…Ø¨ÙŠØ¹Ø§Øª</p>
-            </div>
-        </div>
-
+        <!-- Tabs Navigation -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="showTab('all', this)">
-                <i class="fas fa-list"></i> Ø§Ù„ÙƒÙ„ <span class="count" id="allCount">0</span>
+            <button class="tab-btn active" onclick="switchTab('orders')">
+                <i class="fas fa-shopping-bag"></i>
+                الطلبات
+                <span class="count" id="totalOrdersCount">0</span>
             </button>
-            <button class="tab-btn" onclick="showTab('new', this)">
-                <i class="fas fa-bell"></i> Ø¬Ø¯ÙŠØ¯Ø© <span class="count" id="newCount">0</span>
-            </button>
-            <button class="tab-btn" onclick="showTab('confirmed', this)">
-                <i class="fas fa-check"></i> Ù…Ø¤ÙƒØ¯Ø© <span class="count" id="confirmedCount">0</span>
-            </button>
-            <button class="tab-btn" onclick="showTab('shipped', this)">
-                <i class="fas fa-truck"></i> Ø§Ù„Ø´Ø­Ù† <span class="count" id="shippedCount">0</span>
-            </button>
-            <button class="tab-btn" onclick="showTab('completed', this)">
-                <i class="fas fa-check-double"></i> Ù…ÙƒØªÙ…Ù„Ø© <span class="count" id="completedCount">0</span>
-            </button>
-            <button class="tab-btn" onclick="showTab('cancelled', this)">
-                <i class="fas fa-times"></i> Ù…Ù„ØºØ§Ø© <span class="count" id="cancelledCount">0</span>
-            </button>
-            <button class="tab-btn" onclick="showTab('products', this)">
-                <i class="fas fa-leaf"></i> Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª
+            <button class="tab-btn" onclick="switchTab('products')">
+                <i class="fas fa-leaf"></i>
+                المنتجات
             </button>
         </div>
 
-        <div id="ordersTab" class="tab-content active">
+        <!-- Orders Tab -->
+        <div class="tab-content active" id="ordersTab">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3 id="totalOrders">0</h3>
+                    <p>إجمالي الطلبات</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3 id="pendingOrders">0</h3>
+                    <p>في الانتظار</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3 id="confirmedOrders">0</h3>
+                    <p>مؤكدة</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-truck"></i>
+                    <h3 id="shippedOrders">0</h3>
+                    <p>في الطريق</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-box"></i>
+                    <h3 id="deliveredOrders">0</h3>
+                    <p>تم التسليم</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-coins"></i>
+                    <h3 id="totalRevenue">0</h3>
+                    <p>الإيرادات (د.ج)</p>
+                </div>
+            </div>
+
+            <!-- Order Status Tabs -->
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="filterOrders('all')">
+                    <i class="fas fa-list"></i>
+                    الكل
+                </button>
+                <button class="tab-btn" onclick="filterOrders('pending')">
+                    <i class="fas fa-clock"></i>
+                    في الانتظار
+                </button>
+                <button class="tab-btn" onclick="filterOrders('confirmed')">
+                    <i class="fas fa-check"></i>
+                    مؤكدة
+                </button>
+                <button class="tab-btn" onclick="filterOrders('shipped')">
+                    <i class="fas fa-truck"></i>
+                    في الطريق
+                </button>
+                <button class="tab-btn" onclick="filterOrders('delivered')">
+                    <i class="fas fa-box"></i>
+                    تم التسليم
+                </button>
+                <button class="tab-btn" onclick="filterOrders('cancelled')">
+                    <i class="fas fa-times"></i>
+                    ملغاة
+                </button>
+            </div>
+
+            <!-- Orders Section -->
             <div class="orders-section">
                 <div class="orders-header">
-                    <h2><i class="fas fa-clipboard-list"></i> <span id="currentTabTitle">Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§Øª</span></h2>
+                    <h2><i class="fas fa-clipboard-list"></i> قائمة الطلبات</h2>
                     <button class="refresh-btn" onclick="loadOrders()">
-                        <i class="fas fa-sync-alt"></i> ØªØ­Ø¯ÙŠØ«
+                        <i class="fas fa-sync-alt"></i>
+                        تحديث
                     </button>
                 </div>
                 <div class="orders-list" id="ordersList">
-                    <div class="empty-state">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <p>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</p>
+                    <div class="empty-orders">
+                        <i class="fas fa-inbox"></i>
+                        <p>جاري تحميل الطلبات...</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="productsTab" class="tab-content">
-            <div class="product-section">
-                <div class="product-header">
-                    <h2><i class="fas fa-leaf"></i> Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</h2>
-                </div>
-                <div class="add-product-form">
-                    <h3 style="margin-bottom: 15px; font-size: 15px;"><i class="fas fa-plus-circle"></i> Ø¥Ø¶Ø§ÙØ© Ù…Ù†ØªØ¬</h3>
-                    <form id="addProductForm" onsubmit="addProduct(event)">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ *</label>
-                                <input type="text" id="productName" required placeholder="Ø¨Ø§Ùƒ Ø§Ù„ØªÙˆØ§Ø¨Ù„">
-                            </div>
-                            <div class="form-group">
-                                <label>Ø§Ù„Ø³Ø¹Ø± (Ø¯Ø¬) *</label>
-                                <input type="number" id="productPrice" required placeholder="1900">
-                            </div>
-                            <div class="form-group">
-                                <label>Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ù‚Ø¯ÙŠÙ…</label>
-                                <input type="number" id="productOldPrice" placeholder="2500">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group" style="grid-column: 1 / -1;">
-                                <label>Ø§Ù„ÙˆØµÙ *</label>
-                                <textarea id="productDesc" rows="2" required placeholder="ÙˆØµÙ Ø§Ù„Ù…Ù†ØªØ¬..."></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Ø§Ù„Ø´Ø§Ø±Ø©</label>
-                                <input type="text" id="productBadge" placeholder="Ø¬Ø¯ÙŠØ¯ØŒ Ø¹Ø±Ø¶ Ø®Ø§Øµ">
-                            </div>
-                            <div class="form-group">
-                                <label>ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬</label>
-                                <div class="image-upload-box">
-                                    <input type="file" id="productImage" accept="image/*" onchange="previewImage(this)">
-                                    <div class="upload-placeholder" id="uploadPlaceholder">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <span>Ø§Ø®ØªØ± ØµÙˆØ±Ø©</span>
-                                    </div>
-                                    <img id="imagePreview" class="image-preview" style="display: none;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group" style="justify-content: flex-end;">
-                                <button type="submit" class="submit-btn">
-                                    <i class="fas fa-plus"></i> Ø¥Ø¶Ø§ÙØ©
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="products-list" id="productsList"></div>
+        <!-- Products Tab -->
+        <div class="tab-content" id="productsTab">
+            <button class="add-product-btn" onclick="openProductModal()">
+                <i class="fas fa-plus"></i>
+                إضافة منتج جديد
+            </button>
+            <div class="products-grid-admin" id="productsGrid">
+                <!-- Products will be loaded here -->
             </div>
         </div>
     </div>
 
-    <!-- Edit Product Modal -->
-    <div class="edit-modal-overlay" id="editModalOverlay" onclick="closeEditModal(event)">
-        <div class="edit-modal" onclick="event.stopPropagation()">
-            <div class="edit-modal-header">
-                <h3><i class="fas fa-edit"></i> ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬</h3>
-                <button class="close-edit-modal" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-leaf"></i> <span id="modalTitle">إضافة منتج</span></h3>
+                <button class="close-modal" onclick="closeProductModal()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="edit-modal-body">
-                <form id="editProductForm" onsubmit="saveProductEdit(event)">
-                    <input type="hidden" id="editProductId">
-                    <div class="form-group" style="margin-bottom: 12px;">
-                        <label>Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ *</label>
-                        <input type="text" id="editProductName" required>
+            <div class="modal-body">
+                <form id="productForm" onsubmit="saveProduct(event)">
+                    <input type="hidden" id="productId">
+                    <div class="form-group">
+                        <label>اسم المنتج *</label>
+                        <input type="text" id="productName" required placeholder="مثال: عسل طبيعي">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Ø§Ù„Ø³Ø¹Ø± (Ø¯Ø¬) *</label>
-                            <input type="number" id="editProductPrice" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ù‚Ø¯ÙŠÙ…</label>
-                            <input type="number" id="editProductOldPrice">
-                        </div>
+                    <div class="form-group">
+                        <label>السعر (د.ج) *</label>
+                        <input type="number" id="productPrice" required placeholder="2500">
                     </div>
-                    <div class="form-group" style="margin-bottom: 12px;">
-                        <label>Ø§Ù„ÙˆØµÙ *</label>
-                        <textarea id="editProductDesc" rows="2" required></textarea>
+                    <div class="form-group">
+                        <label>وصف المنتج</label>
+                        <textarea id="productDescription" placeholder="وصف مختصر للمنتج..."></textarea>
                     </div>
-                    <div class="form-group" style="margin-bottom: 12px;">
-                        <label>Ø§Ù„Ø´Ø§Ø±Ø©</label>
-                        <input type="text" id="editProductBadge">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 12px;">
-                        <label>ØµÙˆØ±Ø© Ø¬Ø¯ÙŠØ¯Ø© (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</label>
-                        <div class="image-upload-box">
-                            <input type="file" id="editProductImage" accept="image/*" onchange="previewEditImage(this)">
-                            <div class="upload-placeholder" id="editUploadPlaceholder">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <span>Ø§Ø®ØªØ± ØµÙˆØ±Ø© Ø¬Ø¯ÙŠØ¯Ø©</span>
-                            </div>
-                            <img id="editImagePreview" class="image-preview" style="display: none;">
+                    <div class="form-group">
+                        <label>صورة المنتج</label>
+                        <input type="file" id="productImage" accept="image/*" onchange="previewImage(event)">
+                        <div class="image-preview" id="imagePreview">
+                            <span>معاينة الصورة</span>
                         </div>
                     </div>
-                    <button type="submit" class="submit-btn" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-save"></i> Ø­ÙØ¸ Ø§Ù„ØªØ¹Ø¯ÙŠÙ„Ø§Øª
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save"></i>
+                        حفظ المنتج
                     </button>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
     <script>
         let orders = [];
         let products = [];
         let currentFilter = 'all';
+        let editingProductId = null;
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('adminTheme', next);
+        }
 
         function loadTheme() {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', theme);
+            const saved = localStorage.getItem('adminTheme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
         }
 
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme');
-            const newTheme = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+        // Logout
+        function logout() {
+            localStorage.removeItem('adminAuth');
+            window.location.href = '/';
         }
 
-        loadTheme();
-
-        function showTab(tab, btn) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            if (tab === 'products') {
-                document.getElementById('ordersTab').classList.remove('active');
-                document.getElementById('productsTab').classList.add('active');
-                loadProducts();
-            } else {
-                document.getElementById('productsTab').classList.remove('active');
-                document.getElementById('ordersTab').classList.add('active');
-                currentFilter = tab;
-                const titles = {
-                    'all': 'Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§Øª', 'new': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©',
-                    'confirmed': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ø¤ÙƒØ¯Ø©', 'shipped': 'Ø·Ù„Ø¨Ø§Øª Ù‚ÙŠØ¯ Ø§Ù„Ø´Ø­Ù†',
-                    'completed': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…ÙƒØªÙ…Ù„Ø©', 'cancelled': 'Ø§Ù„Ø·Ù„Ø¨Ø§Øª Ø§Ù„Ù…Ù„ØºØ§Ø©'
-                };
-                document.getElementById('currentTabTitle').textContent = titles[tab];
-                renderOrders();
-            }
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tabs-nav .tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tab + 'Tab').classList.add('active');
+            event.target.classList.add('active');
         }
 
+        // Filter orders
+        function filterOrders(status) {
+            currentFilter = status;
+            document.querySelectorAll('.tabs-nav .tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderOrders();
+        }
+
+        // Load orders
         async function loadOrders() {
             try {
-                const response = await fetch('/api/orders');
+                const response = await fetch('/api/orders', {
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('admin:shop2024')
+                    }
+                });
                 orders = await response.json();
-                orders.sort((a, b) => new Date(b.date) - new Date(a.date));
                 updateStats();
                 renderOrders();
             } catch (error) {
-                console.error('Error:', error);
+                showToast('خطأ في تحميل الطلبات', 'error');
             }
         }
 
+        // Update stats
         function updateStats() {
-            const counts = {
-                new: orders.filter(o => o.status === 'new').length,
+            const stats = {
+                total: orders.length,
+                pending: orders.filter(o => o.status === 'pending').length,
                 confirmed: orders.filter(o => o.status === 'confirmed').length,
                 shipped: orders.filter(o => o.status === 'shipped').length,
-                completed: orders.filter(o => o.status === 'completed').length,
-                cancelled: orders.filter(o => o.status === 'cancelled').length
+                delivered: orders.filter(o => o.status === 'delivered').length,
+                revenue: orders.filter(o => o.status === 'delivered').reduce((sum, o) => sum + o.total, 0)
             };
-            const totalRevenue = orders.filter(o => o.status === 'completed').reduce((sum, o) => sum + o.totalPrice, 0);
 
-            document.getElementById('totalOrders').textContent = orders.length;
-            document.getElementById('newOrders').textContent = counts.new;
-            document.getElementById('shippedOrders').textContent = counts.shipped;
-            document.getElementById('completedOrders').textContent = counts.completed;
-            document.getElementById('totalRevenue').textContent = formatPrice(totalRevenue);
-
-            document.getElementById('allCount').textContent = orders.length;
-            document.getElementById('newCount').textContent = counts.new;
-            document.getElementById('confirmedCount').textContent = counts.confirmed;
-            document.getElementById('shippedCount').textContent = counts.shipped;
-            document.getElementById('completedCount').textContent = counts.completed;
-            document.getElementById('cancelledCount').textContent = counts.cancelled;
+            document.getElementById('totalOrders').textContent = stats.total;
+            document.getElementById('pendingOrders').textContent = stats.pending;
+            document.getElementById('confirmedOrders').textContent = stats.confirmed;
+            document.getElementById('shippedOrders').textContent = stats.shipped;
+            document.getElementById('deliveredOrders').textContent = stats.delivered;
+            document.getElementById('totalRevenue').textContent = stats.revenue.toLocaleString();
+            document.getElementById('totalOrdersCount').textContent = stats.total;
         }
 
+        // Render orders
         function renderOrders() {
-            const list = document.getElementById('ordersList');
-            let filtered = currentFilter === 'all' ? orders : orders.filter(o => o.status === currentFilter);
+            const container = document.getElementById('ordersList');
+            let filtered = orders;
+
+            if (currentFilter !== 'all') {
+                filtered = orders.filter(o => o.status === currentFilter);
+            }
 
             if (filtered.length === 0) {
-                list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª</p></div>';
+                container.innerHTML = `
+                    <div class="empty-orders">
+                        <i class="fas fa-inbox"></i>
+                        <p>لا توجد طلبات</p>
+                    </div>
+                `;
                 return;
             }
 
-            list.innerHTML = filtered.map(order => {
-                const statusLabels = { new: 'Ø¬Ø¯ÙŠØ¯', confirmed: 'Ù…Ø¤ÙƒØ¯', cancelled: 'Ù…Ù„ØºÙŠ', shipped: 'Ù‚ÙŠØ¯ Ø§Ù„Ø´Ø­Ù†', completed: 'Ù…ÙƒØªÙ…Ù„' };
-                const items = order.items.map(i => `<div class="info-row"><span class="info-label">${i.nameAr || i.name}</span><span class="info-value">${i.quantity} Ã— ${formatPrice(i.price)}</span></div>`).join('');
-                
-                let actions = '';
-                if (order.status === 'new') actions = `<button class="action-btn confirm" onclick="updateStatus(${order.id}, 'confirmed')"><i class="fas fa-check"></i> ØªØ£ÙƒÙŠØ¯</button><button class="action-btn cancel" onclick="updateStatus(${order.id}, 'cancelled')"><i class="fas fa-times"></i> Ø¥Ù„ØºØ§Ø¡</button>`;
-                else if (order.status === 'confirmed') actions = `<button class="action-btn ship" onclick="updateStatus(${order.id}, 'shipped')"><i class="fas fa-truck"></i> ØªÙ… Ø§Ù„Ø´Ø­Ù†</button><button class="action-btn cancel" onclick="updateStatus(${order.id}, 'cancelled')"><i class="fas fa-times"></i> Ø¥Ù„ØºØ§Ø¡</button>`;
-                else if (order.status === 'shipped') actions = `<button class="action-btn complete" onclick="updateStatus(${order.id}, 'completed')"><i class="fas fa-check-double"></i> ØªÙ… Ø§Ù„ØªØ³Ù„ÙŠÙ…</button>`;
-                actions += `<button class="action-btn delete" onclick="deleteOrder(${order.id})"><i class="fas fa-trash"></i> Ø­Ø°Ù</button>`;
-
-                return `
-                <div class="order-card ${order.status}">
-                    <div class="order-header" onclick="toggleOrder(${order.id})">
-                        <div class="order-info">
+            container.innerHTML = filtered.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
                             <div class="order-id">#${order.id}</div>
-                            <div class="order-customer">${order.customer.firstName} ${order.customer.lastName}</div>
                             <div class="order-date">${new Date(order.date).toLocaleString('ar-DZ')}</div>
                         </div>
-                        <span class="order-status status-${order.status}">${statusLabels[order.status]}</span>
-                        <div class="order-price">${formatPrice(order.totalPrice)}</div>
+                        <span class="order-status status-${order.status}">
+                            ${getStatusText(order.status)}
+                        </span>
                     </div>
-                    <div class="order-body" id="order-${order.id}">
-                        <div class="order-grid">
-                            <div class="order-info-section">
-                                <h4><i class="fas fa-user"></i> Ø§Ù„Ø¹Ù…ÙŠÙ„</h4>
-                                <div class="info-row"><span class="info-label">Ø§Ù„Ø§Ø³Ù…</span><span class="info-value">${order.customer.firstName} ${order.customer.lastName}</span></div>
-                                <div class="info-row"><span class="info-label">Ø§Ù„Ù‡Ø§ØªÙ</span><span class="info-value"><a href="tel:${order.customer.phone}">${order.customer.phone}</a></span></div>
-                                <div class="info-row"><span class="info-label">Ø§Ù„ÙˆÙ„Ø§ÙŠØ©</span><span class="info-value">${order.customer.wilaya || '-'}</span></div>
-                                <div class="info-row"><span class="info-label">Ø§Ù„Ø¨Ù„Ø¯ÙŠØ©</span><span class="info-value">${order.customer.commune || '-'}</span></div>
-                                <div class="info-row"><span class="info-label">Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</span><span class="info-value">${order.customer.address || '-'}</span></div>
-                            </div>
-                            <div class="order-info-section">
-                                <h4><i class="fas fa-box"></i> Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</h4>
-                                ${items}
-                                <div class="info-row" style="font-weight: bold; margin-top: 8px;"><span>Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹</span><span style="color: var(--accent);">${formatPrice(order.totalPrice)}</span></div>
-                            </div>
-                        </div>
-                        <div class="order-actions">${actions}</div>
+                    <div class="customer-info">
+                        <div><i class="fas fa-user"></i> ${order.customer.firstName} ${order.customer.lastName}</div>
+                        <div><i class="fas fa-phone"></i> ${order.customer.phone}</div>
+                        <div><i class="fas fa-envelope"></i> ${order.customer.email}</div>
+                        <div><i class="fas fa-map-marker-alt"></i> ${order.customer.wilaya}</div>
                     </div>
-                </div>`;
-            }).join('');
-        }
-
-        function toggleOrder(id) { document.getElementById(`order-${id}`).classList.toggle('active'); }
-
-        async function updateStatus(id, status) {
-            try {
-                await fetch(`/api/orders/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
-                loadOrders();
-            } catch (e) { console.error(e); }
-        }
-
-        async function deleteOrder(id) {
-            if (!confirm('Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ø·Ù„Ø¨ØŸ')) return;
-            try { await fetch(`/api/orders/${id}`, { method: 'DELETE' }); loadOrders(); } catch (e) { console.error(e); }
-        }
-
-        async function loadProducts() {
-            try {
-                const response = await fetch('/api/products');
-                products = await response.json();
-                renderProducts();
-            } catch (e) { console.error(e); }
-        }
-
-        function renderProducts() {
-            const list = document.getElementById('productsList');
-            if (products.length === 0) {
-                list.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i><p>Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª</p></div>';
-                return;
-            }
-            list.innerHTML = products.map(p => `
-                <div class="product-item">
-                    ${p.image && p.image !== 'spices-default.svg' ? 
-                        `<img src="/product-images/${p.image}" class="product-item-image" onerror="this.outerHTML='<div class=product-item-image-placeholder><i class=fas fa-leaf></i></div>'">` : 
-                        `<div class="product-item-image-placeholder"><i class="fas fa-leaf"></i></div>`}
-                    <div class="product-item-info">
-                        <h4>${p.nameAr}</h4>
-                        <p>${p.descriptionAr || ''}</p>
-                        ${p.badge ? `<span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 8px; font-size: 10px;">${p.badge}</span>` : ''}
+                    <div class="order-products">
+                        <h4><i class="fas fa-shopping-bag"></i> المنتجات:</h4>
+                        ${order.items.map(item => `${item.name} × ${item.quantity}`).join(' | ')}
                     </div>
-                    <div class="product-item-price">
-                        ${p.oldPrice ? `<span class="old-price">${formatPrice(p.oldPrice)}</span>` : ''}
-                        ${formatPrice(p.price)}
-                    </div>
-                    <div class="product-actions">
-                        <button class="edit-product-btn" onclick="openEditModal(${p.id})"><i class="fas fa-edit"></i> ØªØ¹Ø¯ÙŠÙ„</button>
-                        <button class="delete-product-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                    <div class="order-total">المجموع: ${order.total.toLocaleString()} د.ج</div>
+                    <div class="order-actions">
+                        ${getActionButtons(order)}
                     </div>
                 </div>
             `).join('');
         }
 
-        function previewImage(input) {
-            const preview = document.getElementById('imagePreview');
-            const placeholder = document.getElementById('uploadPlaceholder');
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    placeholder.style.display = 'none';
-                };
-                reader.readAsDataURL(input.files[0]);
+        function getStatusText(status) {
+            const texts = {
+                pending: 'في الانتظار',
+                confirmed: 'مؤكدة',
+                shipped: 'في الطريق',
+                delivered: 'تم التسليم',
+                cancelled: 'ملغاة'
+            };
+            return texts[status] || status;
+        }
+
+        function getActionButtons(order) {
+            let buttons = '';
+            
+            if (order.status === 'pending') {
+                buttons += `<button class="action-btn btn-confirm" onclick="updateStatus('${order.id}', 'confirmed')"><i class="fas fa-check"></i> تأكيد</button>`;
+                buttons += `<button class="action-btn btn-cancel" onclick="updateStatus('${order.id}', 'cancelled')"><i class="fas fa-times"></i> إلغاء</button>`;
+            } else if (order.status === 'confirmed') {
+                buttons += `<button class="action-btn btn-ship" onclick="updateStatus('${order.id}', 'shipped')"><i class="fas fa-truck"></i> شحن</button>`;
+            } else if (order.status === 'shipped') {
+                buttons += `<button class="action-btn btn-deliver" onclick="updateStatus('${order.id}', 'delivered')"><i class="fas fa-box"></i> تم التسليم</button>`;
+            }
+            
+            buttons += `<button class="action-btn btn-delete" onclick="deleteOrder('${order.id}')"><i class="fas fa-trash"></i> حذف</button>`;
+            
+            return buttons;
+        }
+
+        // Update order status
+        async function updateStatus(orderId, status) {
+            try {
+                const response = await fetch(`/api/orders/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Basic ' + btoa('admin:shop2024')
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (response.ok) {
+                    showToast('تم تحديث حالة الطلب', 'success');
+                    loadOrders();
+                }
+            } catch (error) {
+                showToast('خطأ في تحديث الطلب', 'error');
             }
         }
 
-        async function addProduct(e) {
-            e.preventDefault();
-            const imageInput = document.getElementById('productImage');
-            let imageBase64 = null;
-            
-            if (imageInput.files && imageInput.files[0]) {
-                imageBase64 = await new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => resolve(e.target.result);
-                    reader.readAsDataURL(imageInput.files[0]);
+        // Delete order
+        async function deleteOrder(orderId) {
+            if (!confirm('هل أنت متأكد من حذف هذا الطلب؟')) return;
+
+            try {
+                const response = await fetch(`/api/orders/${orderId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('admin:shop2024')
+                    }
                 });
+
+                if (response.ok) {
+                    showToast('تم حذف الطلب', 'success');
+                    loadOrders();
+                }
+            } catch (error) {
+                showToast('خطأ في حذف الطلب', 'error');
+            }
+        }
+
+        // Products functions
+        async function loadProducts() {
+            try {
+                const response = await fetch('/api/products');
+                products = await response.json();
+                renderProducts();
+            } catch (error) {
+                showToast('خطأ في تحميل المنتجات', 'error');
+            }
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('productsGrid');
+            container.innerHTML = products.map(product => `
+                <div class="product-card-admin">
+                    <img src="${product.image || 'https://via.placeholder.com/300x200?text=منتج'}" alt="${product.name}">
+                    <div class="content">
+                        <h3>${product.name}</h3>
+                        <div class="price">${product.price.toLocaleString()} د.ج</div>
+                        <div class="actions">
+                            <button class="edit-btn" onclick="editProduct(${product.id})">
+                                <i class="fas fa-edit"></i> تعديل
+                            </button>
+                            <button class="delete-btn" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i> حذف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openProductModal() {
+            editingProductId = null;
+            document.getElementById('modalTitle').textContent = 'إضافة منتج';
+            document.getElementById('productForm').reset();
+            document.getElementById('imagePreview').innerHTML = '<span>معاينة الصورة</span>';
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            editingProductId = id;
+            document.getElementById('modalTitle').textContent = 'تعديل المنتج';
+            document.getElementById('productId').value = id;
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productDescription').value = product.description || '';
+            
+            if (product.image) {
+                document.getElementById('imagePreview').innerHTML = `<img src="${product.image}" alt="Preview">`;
             }
             
-            const data = {
-                nameAr: document.getElementById('productName').value,
-                price: document.getElementById('productPrice').value,
-                oldPrice: document.getElementById('productOldPrice').value || null,
-                descriptionAr: document.getElementById('productDesc').value,
-                badge: document.getElementById('productBadge').value || '',
-                image: imageBase64
-            };
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function saveProduct(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append('name', document.getElementById('productName').value);
+            formData.append('price', document.getElementById('productPrice').value);
+            formData.append('description', document.getElementById('productDescription').value);
+            
+            const imageFile = document.getElementById('productImage').files[0];
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+
             try {
-                const res = await fetch('/api/products/add', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-                if (res.ok) { 
-                    document.getElementById('addProductForm').reset();
-                    document.getElementById('imagePreview').style.display = 'none';
-                    document.getElementById('uploadPlaceholder').style.display = 'flex';
-                    loadProducts(); 
-                    alert('ØªÙ… Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ù†ØªØ¬!'); 
+                const url = editingProductId ? `/api/products/${editingProductId}` : '/api/products';
+                const method = editingProductId ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('admin:shop2024')
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    showToast(editingProductId ? 'تم تحديث المنتج' : 'تم إضافة المنتج', 'success');
+                    closeProductModal();
+                    loadProducts();
+                } else {
+                    showToast('خطأ في حفظ المنتج', 'error');
                 }
-            } catch (e) { alert('Ø®Ø·Ø£!'); }
+            } catch (error) {
+                showToast('خطأ في حفظ المنتج', 'error');
+            }
         }
 
         async function deleteProduct(id) {
-            if (!confirm('Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬ØŸ')) return;
-            try { await fetch(`/api/products/${id}`, { method: 'DELETE' }); loadProducts(); } catch (e) { console.error(e); }
-        }
+            if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
 
-        function openEditModal(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            
-            document.getElementById('editProductId').value = product.id;
-            document.getElementById('editProductName').value = product.nameAr || '';
-            document.getElementById('editProductPrice').value = product.price || '';
-            document.getElementById('editProductOldPrice').value = product.oldPrice || '';
-            document.getElementById('editProductDesc').value = product.descriptionAr || '';
-            document.getElementById('editProductBadge').value = product.badge || '';
-            
-            // Reset image preview
-            document.getElementById('editImagePreview').style.display = 'none';
-            document.getElementById('editUploadPlaceholder').style.display = 'flex';
-            document.getElementById('editProductImage').value = '';
-            
-            document.getElementById('editModalOverlay').classList.add('active');
-        }
-
-        function closeEditModal(event) {
-            if (event && event.target !== event.currentTarget) return;
-            document.getElementById('editModalOverlay').classList.remove('active');
-        }
-
-        function previewEditImage(input) {
-            const preview = document.getElementById('editImagePreview');
-            const placeholder = document.getElementById('editUploadPlaceholder');
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    placeholder.style.display = 'none';
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        async function saveProductEdit(e) {
-            e.preventDefault();
-            const productId = document.getElementById('editProductId').value;
-            const imageInput = document.getElementById('editProductImage');
-            let imageBase64 = null;
-            
-            if (imageInput.files && imageInput.files[0]) {
-                imageBase64 = await new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => resolve(e.target.result);
-                    reader.readAsDataURL(imageInput.files[0]);
-                });
-            }
-            
-            const data = {
-                nameAr: document.getElementById('editProductName').value,
-                price: document.getElementById('editProductPrice').value,
-                oldPrice: document.getElementById('editProductOldPrice').value || null,
-                descriptionAr: document.getElementById('editProductDesc').value,
-                badge: document.getElementById('editProductBadge').value || '',
-                image: imageBase64
-            };
-            
             try {
-                const res = await fetch(`/api/products/${productId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                const response = await fetch(`/api/products/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('admin:shop2024')
+                    }
                 });
-                if (res.ok) {
-                    closeEditModal();
+
+                if (response.ok) {
+                    showToast('تم حذف المنتج', 'success');
                     loadProducts();
-                    alert('ØªÙ… ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬ Ø¨Ù†Ø¬Ø§Ø­!');
-                } else {
-                    alert('Ø®Ø·Ø£ ÙÙŠ ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬');
                 }
-            } catch (e) {
-                alert('Ø®Ø·Ø£!');
-                console.error(e);
+            } catch (error) {
+                showToast('خطأ في حذف المنتج', 'error');
             }
         }
 
-        function formatPrice(p) { return p.toLocaleString('ar-DZ') + ' Ø¯.Ø¬'; }
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = toast.querySelector('i');
+            document.getElementById('toastMessage').textContent = message;
+            
+            toast.className = `toast ${type}`;
+            icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
 
-        loadOrders();
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            loadOrders();
+            loadProducts();
+        });
     </script>
 </body>
 </html>
-
