@@ -429,3 +429,123 @@ document.addEventListener('keydown', (e) => {
         document.body.style.overflow = '';
     }
 });
+
+// Track Order Function
+async function trackOrder() {
+    const orderId = document.getElementById('trackOrderId').value.trim();
+    const resultDiv = document.getElementById('trackResult');
+    
+    if (!orderId) {
+        resultDiv.innerHTML = '<p>الرجاء إدخال رقم الطلب</p>';
+        resultDiv.className = 'track-result error';
+        resultDiv.style.display = 'block';
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/orders/track/${orderId}`);
+        const data = await response.json();
+        
+        if (response.ok && data.found) {
+            const statusTexts = {
+                'pending': 'في الانتظار',
+                'new': 'جديد',
+                'accepted': 'تم القبول',
+                'shipped': 'في الطريق',
+                'delivered': 'تم التسليم',
+                'rejected': 'مرفوض',
+                'cancelled': 'ملغي'
+            };
+            
+            const statusIcons = {
+                'pending': 'fa-clock',
+                'new': 'fa-clock',
+                'accepted': 'fa-check-circle',
+                'shipped': 'fa-truck',
+                'delivered': 'fa-box',
+                'rejected': 'fa-times-circle',
+                'cancelled': 'fa-times-circle'
+            };
+            
+            // Determine timeline steps status
+            const steps = ['pending', 'accepted', 'shipped', 'delivered'];
+            const currentIndex = steps.indexOf(data.status);
+            
+            let timelineHTML = '';
+            if (data.status !== 'rejected' && data.status !== 'cancelled') {
+                timelineHTML = `
+                    <div class="track-timeline">
+                        <div class="timeline-step ${currentIndex >= 0 ? 'completed' : ''}">
+                            <div class="timeline-icon"><i class="fas fa-clock"></i></div>
+                            <span class="timeline-label">في الانتظار</span>
+                        </div>
+                        <div class="timeline-step ${currentIndex >= 1 ? 'completed' : ''} ${currentIndex === 1 ? 'active' : ''}">
+                            <div class="timeline-icon"><i class="fas fa-check"></i></div>
+                            <span class="timeline-label">تم القبول</span>
+                        </div>
+                        <div class="timeline-step ${currentIndex >= 2 ? 'completed' : ''} ${currentIndex === 2 ? 'active' : ''}">
+                            <div class="timeline-icon"><i class="fas fa-truck"></i></div>
+                            <span class="timeline-label">في الطريق</span>
+                        </div>
+                        <div class="timeline-step ${currentIndex >= 3 ? 'completed' : ''} ${currentIndex === 3 ? 'active' : ''}">
+                            <div class="timeline-icon"><i class="fas fa-box"></i></div>
+                            <span class="timeline-label">تم التسليم</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            resultDiv.innerHTML = `
+                <div class="track-order-info">
+                    <h4><i class="fas fa-receipt"></i> معلومات الطلب #${data.orderId}</h4>
+                    <div class="track-order-details">
+                        <div class="track-detail">
+                            <span class="track-detail-label">تاريخ الطلب</span>
+                            <span class="track-detail-value">${new Date(data.date).toLocaleDateString('ar-DZ')}</span>
+                        </div>
+                        <div class="track-detail">
+                            <span class="track-detail-label">اسم العميل</span>
+                            <span class="track-detail-value">${data.customerName}</span>
+                        </div>
+                        <div class="track-detail">
+                            <span class="track-detail-label">المبلغ الإجمالي</span>
+                            <span class="track-detail-value">${data.totalPrice.toLocaleString()} د.ج</span>
+                        </div>
+                    </div>
+                    <div class="track-status ${data.status}">
+                        <i class="fas ${statusIcons[data.status] || 'fa-info-circle'}"></i>
+                        ${statusTexts[data.status] || data.status}
+                    </div>
+                    ${timelineHTML}
+                </div>
+            `;
+            resultDiv.className = 'track-result success';
+        } else {
+            resultDiv.innerHTML = `
+                <p><i class="fas fa-exclamation-triangle"></i> لم يتم العثور على طلب بهذا الرقم</p>
+                <p style="font-size: 13px; margin-top: 10px;">تأكد من رقم الطلب وحاول مرة أخرى</p>
+            `;
+            resultDiv.className = 'track-result error';
+        }
+        
+        resultDiv.style.display = 'block';
+        
+    } catch (error) {
+        console.error('Error tracking order:', error);
+        resultDiv.innerHTML = '<p><i class="fas fa-exclamation-triangle"></i> حدث خطأ أثناء البحث</p>';
+        resultDiv.className = 'track-result error';
+        resultDiv.style.display = 'block';
+    }
+}
+
+// Allow Enter key to track order
+document.addEventListener('DOMContentLoaded', () => {
+    const trackInput = document.getElementById('trackOrderId');
+    if (trackInput) {
+        trackInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                trackOrder();
+            }
+        });
+    }
+});

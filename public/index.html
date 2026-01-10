@@ -27,6 +27,7 @@
             <nav class="nav">
                 <a href="#products">منتجاتنا</a>
                 <a href="#features">مميزاتنا</a>
+                <a href="#trackOrder">تتبع طلبك</a>
                 <a href="#contact">تواصل معنا</a>
             </nav>
             <div class="header-actions">
@@ -56,6 +57,7 @@
     <div class="mobile-menu" id="mobileMenu">
         <a href="#products" onclick="toggleMobileMenu()">منتجاتنا</a>
         <a href="#features" onclick="toggleMobileMenu()">مميزاتنا</a>
+        <a href="#trackOrder" onclick="toggleMobileMenu()">تتبع طلبك</a>
         <a href="#contact" onclick="toggleMobileMenu()">اتصل بنا</a>
     </div>
 
@@ -210,6 +212,29 @@
                     <i class="fas fa-hand-holding-usd"></i>
                     <h4>الدفع</h4>
                     <p>عند الاستلام</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Track Order Section -->
+    <section class="track-order-section" id="trackOrder">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-search-location"></i>
+                تتبع طلبك
+            </h2>
+            <p class="section-subtitle">أدخل رقم طلبك لمعرفة حالته</p>
+            <div class="track-order-box">
+                <div class="track-input-group">
+                    <input type="text" id="trackOrderId" placeholder="أدخل رقم الطلب..." class="track-input">
+                    <button onclick="trackOrder()" class="track-btn">
+                        <i class="fas fa-search"></i>
+                        تتبع
+                    </button>
+                </div>
+                <div id="trackResult" class="track-result" style="display: none;">
+                    <!-- Result will be shown here -->
                 </div>
             </div>
         </div>

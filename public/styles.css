@@ -811,6 +811,244 @@ body {
     font-size: 14px;
 }
 
+/* Track Order Section */
+.track-order-section {
+    padding: 60px 0;
+    background: var(--bg-primary);
+    text-align: center;
+}
+
+.track-order-section .section-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+.track-order-box {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--bg-secondary);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    border: 2px solid var(--border-color);
+}
+
+.track-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.track-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.3s;
+}
+
+.track-input:focus {
+    outline: none;
+    border-color: #8b5a2b;
+    box-shadow: 0 0 0 4px rgba(139, 90, 43, 0.1);
+}
+
+.track-btn {
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #8b5a2b 0%, #c9a227 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.track-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(139, 90, 43, 0.3);
+}
+
+.track-result {
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: right;
+}
+
+.track-result.success {
+    background: linear-gradient(135deg, rgba(139, 90, 43, 0.1) 0%, rgba(201, 162, 39, 0.1) 100%);
+    border: 2px solid #c9a227;
+}
+
+.track-result.error {
+    background: rgba(220, 53, 69, 0.1);
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    text-align: center;
+}
+
+.track-order-info h4 {
+    font-size: 18px;
+    color: #8b5a2b;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.track-order-details {
+    display: grid;
+    gap: 10px;
+}
+
+.track-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.track-detail:last-child {
+    border-bottom: none;
+}
+
+.track-detail-label {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.track-detail-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.track-status {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.track-status.pending {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    color: #856404;
+}
+
+.track-status.accepted {
+    background: linear-gradient(135deg, #d1e7dd 0%, #a3cfbb 100%);
+    color: #0f5132;
+}
+
+.track-status.shipped {
+    background: linear-gradient(135deg, #cfe2ff 0%, #9ec5fe 100%);
+    color: #084298;
+}
+
+.track-status.delivered {
+    background: linear-gradient(135deg, #d1e7dd 0%, #75b798 100%);
+    color: #0a3622;
+}
+
+.track-status.rejected {
+    background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%);
+    color: #842029;
+}
+
+.track-timeline {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    position: relative;
+}
+
+.track-timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: var(--border-color);
+    z-index: 1;
+}
+
+.timeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 3px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.timeline-step.active .timeline-icon {
+    background: linear-gradient(135deg, #8b5a2b 0%, #c9a227 100%);
+    border-color: #c9a227;
+    color: white;
+}
+
+.timeline-step.completed .timeline-icon {
+    background: #198754;
+    border-color: #198754;
+    color: white;
+}
+
+.timeline-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.timeline-step.active .timeline-label,
+.timeline-step.completed .timeline-label {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .track-input-group {
+        flex-direction: column;
+    }
+    
+    .track-btn {
+        justify-content: center;
+    }
+    
+    .timeline-label {
+        font-size: 9px;
+    }
+    
+    .timeline-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
 /* Footer */
 .footer {
     background: linear-gradient(180deg, #2c1810 0%, #1a0f0a 100%);

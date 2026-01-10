@@ -544,6 +544,32 @@ app.get('/api/orders', async (req, res) => {
     }
 });
 
+// API: Track order (for customers)
+app.get('/api/orders/track/:id', async (req, res) => {
+    try {
+        const orderId = parseInt(req.params.id);
+        const order = await Order.findOne({ orderId });
+        
+        if (!order) {
+            return res.json({ found: false });
+        }
+        
+        // Return limited info for privacy
+        res.json({
+            found: true,
+            orderId: order.orderId,
+            date: order.date,
+            status: order.status,
+            customerName: `${order.customer.firstName} ${order.customer.lastName}`,
+            totalPrice: order.totalPrice,
+            itemsCount: order.items.length
+        });
+    } catch (error) {
+        console.error('Error tracking order:', error);
+        res.status(500).json({ error: 'Failed to track order' });
+    }
+});
+
 // API: Update order status
 app.put('/api/orders/:id/status', async (req, res) => {
     try {
